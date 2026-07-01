@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicospira – Master Your USMLE</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root{
+  --navy:#1B2A4A; --navy-mid:#243554; --navy-light:#2E4170;
+  --cobalt:#1E5FBE; --cobalt-light:#2971D6; --cobalt-dark:#1A52A8;
+  --sky-bg:#EBF2FC; --sky-mid:#DBEAFE; --sky-pale:#F0F6FF;
+  --white:#FFFFFF; --off-white:#F7FAFF;
+  --text-muted:#6B7280; --text-light:#9CA3AF;
+  --border:#D1E3F8;
+  --radius:14px; --radius-sm:8px;
+  --shadow:0 2px 16px rgba(27,42,74,.10);
+  --shadow-md:0 6px 32px rgba(27,42,74,.14);
+  --shadow-lg:0 12px 48px rgba(30,95,190,.18);
+  --sec-py:96px; --sec-px:72px;
+  --hero-py:80px; --hero-px:72px;
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--navy);background:var(--white);overflow-x:hidden;font-size:15px;line-height:1.6;}
+h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;}
+
+/* ═══════════════════════════════════════════
+   PAGE TRANSITIONS
+═══════════════════════════════════════════ */
+.page{display:none;opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease;}
+.page.active{display:block;opacity:1;transform:translateY(0);}
+
+/* ═══════════════════════════════════════════
+   SHARED UTILITIES
+═══════════════════════════════════════════ */
+.stag{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cobalt);margin-bottom:14px;}
+.stitle{font-size:clamp(26px,3.5vw,44px);font-weight:800;color:var(--navy);margin-bottom:14px;line-height:1.15;}
+.stitle span{color:var(--cobalt);}
+.sdesc{font-size:15.5px;color:var(--text-muted);line-height:1.75;}
+.sec{padding:var(--sec-py) var(--sec-px);}
+.sec-center{text-align:center;}
+.sec-center .sdesc{max-width:560px;margin:0 auto 52px;}
+
+/* PAGE HERO BANNER (for inner pages) */
+.page-hero{
+  background:linear-gradient(135deg,#0F1F3D 0%,#1B2A4A 50%,#1E3A6E 100%);
+  padding:72px var(--sec-px) 80px;
+  position:relative; overflow:hidden; text-align:center;
+}
+.page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.page-hero-glow{position:absolute;top:-160px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(30,95,190,.30),transparent 65%);border-radius:50%;pointer-events:none;}
+.page-hero-glow2{position:absolute;bottom:-140px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(6,182,212,.15),transparent 65%);border-radius:50%;pointer-events:none;}
+.page-hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:6px 18px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:20px;}
+.page-hero h1{font-size:clamp(32px,4.5vw,56px);font-weight:800;color:white;margin-bottom:16px;position:relative;z-index:1;}
+.page-hero h1 span{color:#60A5FA;}
+.page-hero p{font-size:17px;color:rgba(255,255,255,.65);max-width:580px;margin:0 auto;position:relative;z-index:1;}
+.breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:24px;position:relative;z-index:1;}
+.breadcrumb span{font-size:13px;color:rgba(255,255,255,.45);}
+.breadcrumb a{font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;transition:color .2s;}
+.breadcrumb a:hover{color:white;}
+
+/* ═══════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════ */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--cobalt);color:white;border:none;border-radius:var(--radius-sm);padding:12px 24px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s,box-shadow .2s,transform .15s;}
+.btn-primary:hover{background:var(--cobalt-light);box-shadow:0 6px 20px rgba(30,95,190,.40);transform:translateY(-1px);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--cobalt);border:2px solid var(--cobalt);border-radius:var(--radius-sm);padding:11px 22px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s;}
+.btn-outline:hover{background:var(--cobalt);color:white;}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);border-radius:var(--radius-sm);padding:12px 24px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:white;cursor:pointer;transition:background .2s;}
+.btn-ghost:hover{background:rgba(255,255,255,.16);}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+nav{position:sticky;top:0;z-index:1000;background:var(--navy);height:66px;box-shadow:0 2px 12px rgba(0,0,0,.25);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;padding:0 var(--sec-px);}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-icon{width:40px;height:40px;border-radius:10px;flex-shrink:0;object-fit:contain;}
+.logo-text{font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:white;}
+.logo-text span{color:#60A5FA;}
+.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{color:rgba(255,255,255,.75);font-size:14px;font-weight:500;padding:7px 14px;border-radius:8px;transition:color .2s,background .2s;cursor:pointer;display:block;}
+.nav-links a:hover{color:white;background:rgba(255,255,255,.08);}
+.nav-links a.active{color:white;background:rgba(255,255,255,.12);}
+.nav-actions{display:flex;align-items:center;gap:12px;}
+.nav-signin{background:none;border:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:rgba(255,255,255,.80);cursor:pointer;padding:7px 12px;border-radius:8px;transition:color .2s,background .2s;}
+.nav-signin:hover{color:white;background:rgba(255,255,255,.08);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:2px;background:white;border-radius:2px;transition:transform .3s,opacity .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-drawer{display:none;flex-direction:column;position:absolute;top:66px;left:0;right:0;background:#1e3060;padding:20px 24px;gap:4px;border-top:1px solid rgba(255,255,255,.08);box-shadow:0 8px 24px rgba(0,0,0,.3);}
+.nav-drawer.open{display:flex;}
+.nav-drawer a{color:rgba(255,255,255,.85);font-size:15px;font-weight:500;padding:10px 12px;border-radius:8px;cursor:pointer;transition:background .2s;}
+.nav-drawer a:hover{background:rgba(255,255,255,.10);}
+.nav-drawer a.active{background:rgba(255,255,255,.12);color:white;}
+.nav-drawer .btn-primary{width:100%;justify-content:center;margin-top:8px;}
+
+/* ═══════════════════════════════════════════
+   IMAGE PLACEHOLDERS
+═══════════════════════════════════════════ */
+.iph{background:linear-gradient(135deg,rgba(30,95,190,.18),rgba(37,99,235,.10));border:2px dashed rgba(96,165,250,.45);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.80);font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;text-align:center;gap:10px;padding:24px;backdrop-filter:blur(10px);}
+.ipl{background:linear-gradient(135deg,#EBF2FC,#DBEAFE);border:2px dashed #BFDBFE;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cobalt);font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;text-align:center;gap:10px;padding:24px;}
+.iph-lbl,.ipl-lbl{font-size:11px;font-weight:400;color:rgba(255,255,255,.40);font-family:'Inter',sans-serif;line-height:1.5;}
+.ipl-lbl{color:var(--text-muted);}
+
+/* ═══════════════════════════════════════════
+   FOOTER (shared)
+═══════════════════════════════════════════ */
+footer{background:var(--navy);color:white;padding:64px var(--sec-px) 32px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.10);}
+.footer-tagline{margin-top:12px;font-size:14px;color:rgba(255,255,255,.50);line-height:1.65;max-width:280px;}
+.soc{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;}
+.sb{height:36px;padding:0 14px;background:rgba(255,255,255,.08);border-radius:8px;display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-size:12px;font-weight:600;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;}
+.sb:hover{background:var(--cobalt);color:white;}
+.sb svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;}
+.fcol h5{font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:white;margin-bottom:18px;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.fcol ul a{font-size:14px;color:rgba(255,255,255,.50);transition:color .2s;cursor:pointer;}
+.fcol ul a:hover{color:#93C5FD;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;font-size:13px;color:rgba(255,255,255,.35);flex-wrap:wrap;gap:12px;}
+
+/* ═══════════════════════════════════════════
+   STEP-PICKER MODAL
+═══════════════════════════════════════════ */
+.step-modal-backdrop{position:fixed;inset:0;background:rgba(15,31,61,.68);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:1000;opacity:0;transition:opacity .25s ease;padding:20px;}
+.step-modal-backdrop.open{display:flex;opacity:1;}
+.step-modal{background:white;border-radius:20px;box-shadow:0 24px 80px rgba(15,31,61,.40);width:100%;max-width:880px;padding:36px 36px 32px;position:relative;transform:translateY(14px) scale(.98);transition:transform .28s ease;max-height:92vh;overflow-y:auto;}
+.step-modal-backdrop.open .step-modal{transform:translateY(0) scale(1);}
+.step-modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:none;background:#F1F5F9;color:var(--navy);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;}
+.step-modal-close:hover{background:#E2E8F0;transform:rotate(90deg);}
+.step-modal-head{text-align:center;margin-bottom:28px;}
+.step-modal-head .stag{margin-bottom:10px;}
+.step-modal-head h3{font-family:'Poppins',sans-serif;font-size:clamp(22px,2.6vw,28px);font-weight:800;color:var(--navy);margin-bottom:8px;}
+.step-modal-head h3 span{color:var(--cobalt);}
+.step-modal-head p{font-size:14px;color:var(--text-muted);}
+.step-modal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.smcard{border-radius:16px;padding:22px 20px 20px;border:2px solid var(--border);background:white;display:flex;flex-direction:column;gap:14px;transition:transform .2s,box-shadow .2s,border-color .2s;}
+.smcard:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,95,190,.14);}
+.smcard.s1{background:linear-gradient(160deg,#EBF2FC,#F0F6FF);}
+.smcard.s1:hover{border-color:var(--cobalt);}
+.smcard.s2{background:linear-gradient(160deg,#CFFAFE,#ECFEFF);}
+.smcard.s2:hover{border-color:#0891B2;}
+.smcard.s3{background:linear-gradient(160deg,#FEF3C7,#FFFBEB);}
+.smcard.s3:hover{border-color:#D97706;}
+.smcard-badge{display:inline-flex;align-self:flex-start;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 11px;border-radius:100px;background:rgba(255,255,255,.7);}
+.smcard.s1 .smcard-badge{color:var(--cobalt);}
+.smcard.s2 .smcard-badge{color:#0891B2;}
+.smcard.s3 .smcard-badge{color:#D97706;}
+.smcard-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(255,255,255,.75);}
+.smcard h4{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin:0;}
+.smcard p{font-size:13px;color:var(--text-muted);line-height:1.55;margin:0;flex:1;}
+.smcard-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:11px 14px;border-radius:10px;border:none;cursor:pointer;color:white;transition:transform .15s,box-shadow .2s;text-decoration:none;}
+.smcard-btn:hover{transform:translateY(-1px);}
+.smcard.s1 .smcard-btn{background:var(--cobalt);}
+.smcard.s1 .smcard-btn:hover{background:var(--cobalt-light);box-shadow:0 6px 18px rgba(30,95,190,.35);}
+.smcard.s2 .smcard-btn{background:#0891B2;}
+.smcard.s2 .smcard-btn:hover{background:#06B6D4;box-shadow:0 6px 18px rgba(8,145,178,.35);}
+.smcard.s3 .smcard-btn{background:#D97706;}
+.smcard.s3 .smcard-btn:hover{background:#F59E0B;box-shadow:0 6px 18px rgba(217,119,6,.35);}
+.step-modal-foot{text-align:center;margin-top:22px;font-size:12.5px;color:var(--text-light);}
+@media(max-width:720px){
+  .step-modal{padding:28px 22px 24px;}
+  .step-modal-grid{grid-template-columns:1fr;gap:14px;}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ██  HOME PAGE
+═══════════════════════════════════════════════════════════ */
+/* HERO */
+.hero{background:linear-gradient(135deg,#0F1F3D 0%,#1B2A4A 50%,#1E3A6E 100%);padding:var(--hero-py) var(--hero-px);display:flex;align-items:center;gap:48px;position:relative;overflow:hidden;min-height:calc(100vh - 66px);}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.hero-glow1{position:absolute;top:-180px;right:-80px;width:520px;height:520px;background:radial-gradient(circle,rgba(30,95,190,.35),transparent 65%);border-radius:50%;pointer-events:none;}
+.hero-glow2{position:absolute;bottom:-120px;left:8%;width:360px;height:360px;background:radial-gradient(circle,rgba(37,99,235,.18),transparent 65%);border-radius:50%;pointer-events:none;}
+.hero-content{flex:1;max-width:580px;position:relative;z-index:1;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:500;color:rgba(255,255,255,.90);margin-bottom:28px;backdrop-filter:blur(8px);}
+.bdot{width:8px;height:8px;background:#22C55E;border-radius:50%;flex-shrink:0;}
+.hero h1{font-size:clamp(32px,4.8vw,62px);font-weight:800;line-height:1.08;color:white;margin-bottom:14px;}
+.hero h1 span{color:#60A5FA;}
+.hero-sub{font-size:clamp(16px,2vw,21px);color:rgba(255,255,255,.70);margin-bottom:18px;}
+.hero-desc{font-size:15px;line-height:1.78;color:rgba(255,255,255,.65);margin-bottom:30px;}
+.hero-desc strong{color:rgba(255,255,255,.92);font-weight:600;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+.hero-pill{border:1.5px solid rgba(255,255,255,.20);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:700;letter-spacing:.5px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.07);}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.hero-visual{flex:1;display:flex;justify-content:center;align-items:center;position:relative;z-index:1;}
+.hvw{position:relative;max-width:580px;width:100%;}
+.hero-main-img{width:100%;height:auto;border-radius:16px;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.35)) drop-shadow(0 8px 16px rgba(0,0,0,.2));}
+.fbadge{position:absolute;background:white;border-radius:12px;padding:10px 16px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:10px;white-space:nowrap;font-family:'Poppins',sans-serif;}
+.ficon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.flbl{font-size:10px;color:var(--text-muted);font-family:'Inter',sans-serif;}
+.fval{font-size:14px;font-weight:700;color:var(--navy);}
+.live-pill{position:absolute;top:14px;right:-12px;background:var(--cobalt);color:white;font-family:'Poppins',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 14px;border-radius:100px;box-shadow:0 4px 14px rgba(30,95,190,.45);}
+
+/* HOME – WHY */
+.why{padding:var(--sec-py) var(--sec-px);background:#EBF3FD;text-align:center;position:relative;overflow:hidden;}
+.why::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 10% 20%,rgba(30,95,190,.07) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 90% 80%,rgba(6,182,212,.06) 0%,transparent 60%);pointer-events:none;}
+.why-head{position:relative;z-index:1;margin-bottom:36px;}
+.why-stats{display:flex;justify-content:center;gap:0;max-width:680px;margin:0 auto 48px;background:white;border-radius:16px;box-shadow:0 4px 24px rgba(30,95,190,.10);overflow:hidden;position:relative;z-index:1;}
+.why-stat{flex:1;padding:22px 16px;text-align:center;border-right:1px solid #E9F2FD;}
+.why-stat:last-child{border-right:none;}
+.why-stat-num{font-family:'Poppins',sans-serif;font-size:26px;font-weight:800;color:var(--cobalt);line-height:1;margin-bottom:4px;}
+.why-stat-lbl{font-size:12px;color:var(--text-muted);font-weight:500;}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.wcard{display:flex;flex-direction:column;align-items:flex-start;padding:0;background:white;border-radius:20px;border:1px solid rgba(30,95,190,.09);box-shadow:0 2px 12px rgba(27,42,74,.06);overflow:hidden;transition:box-shadow .28s,transform .28s;text-align:left;}
+.wcard:hover{box-shadow:0 12px 40px rgba(30,95,190,.16);transform:translateY(-5px);}
+.wcard-stripe{width:100%;height:4px;}
+.stripe-1{background:linear-gradient(90deg,#1E5FBE,#60A5FA);}
+.stripe-2{background:linear-gradient(90deg,#06B6D4,#A5F3FC);}
+.stripe-3{background:linear-gradient(90deg,#7C3AED,#C4B5FD);}
+.stripe-4{background:linear-gradient(90deg,#059669,#6EE7B7);}
+.wcard-body{padding:28px 24px 30px;display:flex;flex-direction:column;gap:12px;flex:1;}
+.wicon{width:60px;height:60px;border-radius:15px;display:flex;align-items:center;justify-content:center;}
+.wicon svg{width:26px;height:26px;}
+.ic1{background:#E8F1FC;} .ic2{background:#CFFAFE;} .ic3{background:#EDE9FE;} .ic4{background:#D1FAE5;}
+.wcard-title{font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--navy);}
+.wcard-desc{font-size:13.5px;color:var(--text-muted);line-height:1.65;}
+.wcard-link{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--cobalt);margin-top:auto;padding-top:8px;transition:gap .2s;}
+.wcard:hover .wcard-link{gap:9px;}
+
+/* HOME – STEPS (dark) */
+.steps{padding:var(--sec-py) var(--sec-px);background:var(--navy);text-align:center;position:relative;overflow:hidden;}
+.steps::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
+.steps::after{content:'';position:absolute;top:-200px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(30,95,190,.30),transparent 65%);border-radius:50%;pointer-events:none;}
+.steps-glow{position:absolute;bottom:-180px;left:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(6,182,212,.15),transparent 65%);border-radius:50%;pointer-events:none;}
+.steps .stitle{color:white;position:relative;z-index:1;}
+.steps .stitle span{color:#60A5FA;}
+.steps .sdesc{max-width:520px;margin:0 auto 0;color:rgba(255,255,255,.55);position:relative;z-index:1;}
+.steps-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:6px 18px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.70);margin-bottom:18px;position:relative;z-index:1;}
+.carousel-row{display:flex;align-items:center;justify-content:center;gap:12px;margin:28px auto 40px;position:relative;z-index:1;}
+.c-arrow{width:36px;height:36px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:white;transition:background .2s;}
+.c-arrow:hover{background:rgba(255,255,255,.20);}
+.c-dot-a{width:28px;height:6px;background:#60A5FA;border-radius:4px;}
+.c-dot-i{width:6px;height:6px;background:rgba(255,255,255,.25);border-radius:50%;}
+.steps-divider{max-width:1100px;margin:0 auto 36px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15) 30%,rgba(255,255,255,.15) 70%,transparent);position:relative;z-index:1;}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.scard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:28px 22px;text-align:left;cursor:pointer;transition:background .25s,border-color .25s,transform .25s;position:relative;overflow:hidden;backdrop-filter:blur(8px);}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .25s;}
+.scard:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.25);transform:translateY(-4px);}
+.scard:hover::before{opacity:1;}
+.scard.s1::before{background:linear-gradient(90deg,#1E5FBE,#60A5FA);}
+.scard.s2::before{background:linear-gradient(90deg,#06B6D4,#67E8F9);}
+.scard.s3::before{background:linear-gradient(90deg,#7C3AED,#C4B5FD);}
+.scard.s4::before{background:linear-gradient(90deg,#D97706,#FDE68A);}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.15);font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.60);margin-bottom:20px;}
+.sicon{width:56px;height:56px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:0;margin-bottom:18px;}
+.sicon svg{width:26px;height:26px;}
+.si1{background:rgba(30,95,190,.30);} .si2{background:rgba(6,182,212,.25);} .si3{background:rgba(124,58,237,.25);} .si4{background:rgba(217,119,6,.25);}
+.scard h3{font-size:20px;font-weight:800;color:white;margin-bottom:6px;line-height:1.2;}
+.ssub{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.40);margin-bottom:16px;}
+.step-topics{display:none;}
+.step-topic{display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,.55);}
+.step-topic::before{content:'';width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);flex-shrink:0;}
+.scard-arrow{position:absolute;bottom:22px;right:22px;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.50);font-size:13px;transition:background .2s,color .2s;}
+.scard:hover .scard-arrow{background:var(--cobalt);color:white;border-color:var(--cobalt);}
+
+/* HOME – PERFORMANCE */
+.perf{padding:var(--sec-py) var(--sec-px);background:white;display:flex;align-items:center;gap:64px;}
+.perf-c{flex:1;}
+.perf-v{flex:1;display:flex;justify-content:flex-end;}
+.perf-wrap{position:relative;width:100%;max-width:480px;}
+.flist{margin-top:32px;display:flex;flex-direction:column;gap:22px;}
+.fi{display:flex;gap:14px;align-items:flex-start;}
+.fiicon{width:44px;height:44px;min-width:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--sky-bg);}
+.fiicon.b{background:#DBEAFE;} .fiicon.c{background:#E0F2FE;}
+.fi h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.fi p{font-size:14px;color:var(--text-muted);line-height:1.65;}
+.pfloat{position:absolute;top:-20px;right:-18px;background:white;border-radius:14px;padding:10px 16px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:10px;}
+.pgreen{width:36px;height:36px;background:#22C55E;border-radius:9px;flex-shrink:0;}
+.plbl{font-size:11px;color:var(--text-muted);}
+.pval{font-size:19px;font-weight:800;color:#16A34A;font-family:'Poppins',sans-serif;}
+
+/* HOME – MOB */
+.mob{padding:var(--sec-py) var(--sec-px);background:var(--sky-pale);display:flex;align-items:center;gap:64px;}
+.mob-l{flex:1;display:flex;justify-content:center;}
+.mob-r{flex:1;}
+.coming{font-style:italic;color:var(--text-muted);font-size:14px;margin-top:12px;}
+
+/* ═══════════════════════════════════════════════════════════
+   ██  FEATURES PAGE
+═══════════════════════════════════════════════════════════ */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1100px;margin:0 auto;}
+.feat-card{background:white;border-radius:20px;border:1px solid var(--border);padding:32px 28px;transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;}
+.feat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+.feat-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+.feat-card.fc-blue::after{background:linear-gradient(90deg,#1E5FBE,#60A5FA);}
+.feat-card.fc-cyan::after{background:linear-gradient(90deg,#06B6D4,#67E8F9);}
+.feat-card.fc-purple::after{background:linear-gradient(90deg,#7C3AED,#C4B5FD);}
+.feat-card.fc-green::after{background:linear-gradient(90deg,#059669,#6EE7B7);}
+.feat-card.fc-amber::after{background:linear-gradient(90deg,#D97706,#FDE68A);}
+.feat-card.fc-rose::after{background:linear-gradient(90deg,#E11D48,#FDA4AF);}
+.feat-icon{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.feat-icon svg{width:28px;height:28px;}
+.fi-blue{background:#E8F1FC;} .fi-cyan{background:#CFFAFE;} .fi-purple{background:#EDE9FE;}
+.fi-green{background:#D1FAE5;} .fi-amber{background:#FEF3C7;} .fi-rose{background:#FFE4E6;}
+.feat-card h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.feat-card p{font-size:14px;color:var(--text-muted);line-height:1.70;}
+.feat-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.feat-tag{background:var(--sky-bg);color:var(--cobalt);font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;}
+
+/* Features – How it works */
+.how-row{display:flex;gap:0;max-width:1000px;margin:0 auto;position:relative;}
+.how-row::before{content:'';position:absolute;top:28px;left:calc(16.66% + 14px);right:calc(16.66% + 14px);height:2px;background:linear-gradient(90deg,var(--cobalt),#60A5FA);z-index:0;}
+.how-step{flex:1;text-align:center;position:relative;z-index:1;}
+.how-num{width:56px;height:56px;border-radius:50%;background:var(--cobalt);color:white;font-family:'Poppins',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 16px rgba(30,95,190,.35);}
+.how-step h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.how-step p{font-size:13px;color:var(--text-muted);max-width:140px;margin:0 auto;}
+
+/* Features – Testimonials */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;}
+.tcard{background:white;border-radius:16px;border:1px solid var(--border);padding:28px;box-shadow:var(--shadow);}
+.tcard-stars{color:#F59E0B;font-size:16px;margin-bottom:12px;}
+.tcard p{font-size:14px;color:var(--text-muted);line-height:1.70;font-style:italic;margin-bottom:18px;}
+.tcard-author{display:flex;align-items:center;gap:12px;}
+.tcard-avatar{width:42px;height:42px;border-radius:50%;background:var(--cobalt);color:white;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;flex-shrink:0;}
+.tcard-name{font-weight:700;font-size:14px;color:var(--navy);}
+.tcard-role{font-size:12px;color:var(--text-muted);}
+
+/* ═══════════════════════════════════════════════════════════
+   ██  USMLE STEPS PAGE
+═══════════════════════════════════════════════════════════ */
+.steps-page-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;}
+.sp-card{background:white;border-radius:24px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s;}
+.sp-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.sp-header{padding:32px 32px 24px;position:relative;}
+.sp-header.h1{background:linear-gradient(135deg,#EBF2FC,#DBEAFE);}
+.sp-header.h2{background:linear-gradient(135deg,#CFFAFE,#E0F2FE);}
+.sp-header.h3{background:linear-gradient(135deg,#EDE9FE,#DDD6FE);}
+.sp-header.h4{background:linear-gradient(135deg,#FEF3C7,#FDE68A);}
+.sp-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:16px;}
+.b1{background:rgba(30,95,190,.12);color:var(--cobalt);}
+.b2{background:rgba(6,182,212,.12);color:#0891B2;}
+.b3{background:rgba(124,58,237,.12);color:#7C3AED;}
+.b4{background:rgba(217,119,6,.12);color:#D97706;}
+.sp-header h2{font-size:28px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.sp-header p{font-size:14px;color:var(--text-muted);}
+.sp-icon-float{position:absolute;top:24px;right:28px;width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;}
+.sp-icon-float svg{width:30px;height:30px;}
+.sp-body{padding:28px 32px 32px;}
+.sp-topics-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:16px;}
+.sp-topics{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.sp-topic{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--off-white);border-radius:10px;border:1px solid var(--border);}
+.sp-topic-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.d1{background:var(--cobalt);} .d2{background:#0891B2;} .d3{background:#7C3AED;} .d4{background:#D97706;}
+.sp-topic-text h5{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:2px;}
+.sp-topic-text p{font-size:12.5px;color:var(--text-muted);}
+.sp-footer{display:flex;align-items:center;justify-content:space-between;}
+.sp-q-count{font-size:13px;font-weight:600;color:var(--cobalt);}
+
+/* ═══════════════════════════════════════════════════════════
+   ██  PRICING PAGE — FULL REDESIGN
+═══════════════════════════════════════════════════════════ */
+
+/* Step selector tabs */
+.ptab {
+  flex:1; padding:10px 8px;
+  background:none; border:none; border-radius:10px;
+  font-family:'Poppins',sans-serif; font-size:13px; font-weight:600;
+  color:var(--text-muted); cursor:pointer;
+  transition:background .2s, color .2s;
+  white-space:nowrap;
+}
+.ptab:hover { background:var(--sky-bg); color:var(--navy); }
+.ptab-active { background:var(--cobalt) !important; color:white !important; }
+
+/* Step badge inside card */
+.pcard-step-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:700; letter-spacing:.5px;
+  padding:4px 12px; border-radius:100px;
+  margin-bottom:14px;
+}
+
+/* Billing toggle */
+.pricing-toggle {
+  display:flex; align-items:center; justify-content:center;
+  gap:14px; margin-bottom:56px;
+}
+.ptoggle-label  { font-size:15px; font-weight:600; color:var(--navy); }
+.ptoggle-switch {
+  width:52px; height:28px; background:var(--cobalt);
+  border-radius:100px; position:relative; cursor:pointer; transition:background .2s;
+}
+.ptoggle-knob {
+  position:absolute; top:3px; left:3px;
+  width:22px; height:22px; background:white; border-radius:50%;
+  transition:transform .25s; box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+.ptoggle-switch.annual .ptoggle-knob { transform:translateX(24px); }
+.save-badge {
+  background:#DCFCE7; color:#16A34A;
+  font-size:12px; font-weight:700;
+  padding:4px 12px; border-radius:100px;
+}
+
+/* Grid — always 3 columns side by side, centred, capped width */
+.pricing-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;                          /* no gap — cards touch so featured can overlap */
+  max-width:1000px;
+  margin:0 auto 72px;
+  align-items:stretch;            /* equal height */
+}
+
+/* Base card */
+.pcard {
+  background:white;
+  border:1px solid var(--border);
+  padding:40px 32px 36px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  transition:box-shadow .25s, transform .25s;
+}
+
+/* Left card — rounded left corners */
+.pcard:first-child {
+  border-radius:20px 0 0 20px;
+  border-right:none;
+}
+
+/* Right card — rounded right corners */
+.pcard:last-child {
+  border-radius:0 20px 20px 0;
+  border-left:none;
+}
+
+/* Featured (Pro) — centre, lifted, bigger */
+.pcard.featured {
+  background:var(--navy);
+  border:none;
+  border-radius:20px;
+  padding:52px 36px 40px;
+  margin:-20px 0;                 /* pull up & down to overlap neighbours */
+  z-index:10;
+  box-shadow:0 20px 60px rgba(27,42,74,.35);
+}
+.pcard.featured:hover {
+  transform:translateY(-4px);
+  box-shadow:0 28px 72px rgba(27,42,74,.45);
+}
+.pcard:not(.featured):hover {
+  box-shadow:var(--shadow-md);
+  z-index:5;
+}
+
+/* Popular badge */
+.pcard-popular {
+  position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  background:linear-gradient(90deg,#60A5FA,#38BDF8);
+  color:var(--navy);
+  font-family:'Poppins',sans-serif; font-size:11px; font-weight:800;
+  padding:5px 20px; border-radius:0 0 12px 12px;
+  white-space:nowrap; letter-spacing:.5px;
+}
+
+/* Plan name */
+.pcard-name {
+  font-size:12px; font-weight:800;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--cobalt); margin-bottom:20px;
+}
+.pcard.featured .pcard-name { color:#60A5FA; }
+
+/* Price */
+.pcard-price {
+  font-family:'Poppins',sans-serif;
+  font-size:56px; font-weight:800;
+  color:var(--navy); line-height:1; margin-bottom:6px;
+}
+.pcard-price sup {
+  font-size:24px; font-weight:700; vertical-align:super; line-height:0;
+}
+.pcard.featured .pcard-price { color:white; }
+
+/* Period */
+.pcard-period {
+  font-size:13px; color:var(--text-muted); margin-bottom:20px;
+  min-height:20px;
+}
+.pcard.featured .pcard-period { color:rgba(255,255,255,.55); }
+
+/* Divider */
+.pcard-divider {
+  height:1px; background:var(--border);
+  margin-bottom:20px;
+}
+.pcard.featured .pcard-divider { background:rgba(255,255,255,.12); }
+
+/* Description */
+.pcard-desc {
+  font-size:13.5px; color:var(--text-muted);
+  line-height:1.68; margin-bottom:24px; flex-shrink:0;
+}
+.pcard.featured .pcard-desc { color:rgba(255,255,255,.65); }
+
+/* Feature list */
+.pcard-features {
+  display:flex; flex-direction:column; gap:12px;
+  margin-bottom:32px; flex:1;  /* pushes button to bottom */
+}
+.pf {
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:13.5px; color:var(--navy);
+}
+.pcard.featured .pf { color:rgba(255,255,255,.90); }
+
+/* Check icon */
+.pf-check {
+  width:18px; height:18px; border-radius:50%;
+  background:#DCFCE7; border:1.5px solid #86EFAC;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:1px;
+}
+.pf-check svg { width:10px; height:10px; stroke:#16A34A; stroke-width:2.5; }
+.pcard.featured .pf-check {
+  background:rgba(74,222,128,.20); border-color:rgba(74,222,128,.40);
+}
+.pcard.featured .pf-check svg { stroke:#4ADE80; }
+
+/* Cross icon */
+.pf-x {
+  width:18px; height:18px; border-radius:50%;
+  background:#F3F4F6; display:flex; align-items:center;
+  justify-content:center; flex-shrink:0; margin-top:1px;
+}
+.pf-x svg { width:10px; height:10px; stroke:#9CA3AF; stroke-width:2.5; }
+.pf.dimmed { color:var(--text-muted); }
+.pcard.featured .pf.dimmed { color:rgba(255,255,255,.30); }
+
+/* Plan-duration dropdown */
+.pplan-select {
+  width:100%; padding:11px 14px; margin-bottom:14px;
+  font-family:'Inter',sans-serif; font-size:13px; font-weight:600;
+  color:var(--navy); background:white;
+  border:1.5px solid var(--border); border-radius:10px;
+  cursor:pointer; appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><polyline points='2,4 6,8 10,4' fill='none' stroke='%231E5FBE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat:no-repeat; background-position:right 14px center;
+  transition:border-color .2s, box-shadow .2s;
+}
+.pplan-select:hover, .pplan-select:focus { border-color:var(--cobalt); outline:none; box-shadow:0 0 0 3px rgba(30,95,190,.12); }
+.pcard.featured .pplan-select {
+  background-color:rgba(255,255,255,.10); color:white;
+  border-color:rgba(255,255,255,.25);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><polyline points='2,4 6,8 10,4' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.pcard.featured .pplan-select option { color:var(--navy); background:white; }
+
+/* Buttons */
+.pcard .btn-outline {
+  width:100%; justify-content:center;
+  padding:13px; font-size:14px;
+  border-radius:10px; margin-top:auto;
+}
+.pcard .btn-primary {
+  width:100%; justify-content:center;
+  padding:14px; font-size:15px;
+  border-radius:10px; margin-top:auto;
+  background:linear-gradient(90deg,#60A5FA,#38BDF8);
+  color:var(--navy); font-weight:800;
+  box-shadow:0 6px 20px rgba(96,165,250,.35);
+  border:none;
+}
+.pcard .btn-primary:hover {
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(96,165,250,.50);
+}
+
+/* Trust bar */
+.pricing-trust {
+  display:flex; justify-content:center; gap:36px;
+  flex-wrap:wrap; margin-bottom:72px; margin-top:16px;
+}
+.pricing-trust-item {
+  display:flex; align-items:center; gap:8px;
+  font-size:13.5px; color:var(--text-muted); font-weight:500;
+}
+.pricing-trust-item span { font-size:18px; }
+
+/* FAQ */
+.faq-list { max-width:740px; margin:0 auto; display:flex; flex-direction:column; gap:10px; }
+.faq-item { background:white; border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.faq-q {
+  padding:18px 24px; display:flex; align-items:center;
+  justify-content:space-between; cursor:pointer;
+  font-weight:600; font-size:15px; color:var(--navy); transition:background .2s;
+}
+.faq-q:hover { background:var(--sky-bg); }
+.faq-q-icon { font-size:20px; color:var(--cobalt); transition:transform .25s; flex-shrink:0; }
+.faq-q-icon.open { transform:rotate(45deg); }
+.faq-a { display:none; padding:0 24px 20px; font-size:14px; color:var(--text-muted); line-height:1.75; }
+.faq-a.open { display:block; }
+
+/* ── Responsive ── */
+/* Tablet landscape: keep 3 cols but tighten */
+@media(max-width:1024px) and (min-width:641px){
+  .pricing-grid { max-width:860px; }
+  .pcard { padding:32px 20px 28px; }
+  .pcard.featured { padding:44px 24px 36px; }
+  .pcard-price { font-size:44px; }
+}
+/* Mobile: stack to single column, remove overlap */
+@media(max-width:640px){
+  .pricing-grid {
+    grid-template-columns:1fr;
+    gap:20px;
+    max-width:420px;
+  }
+  .pcard:first-child { border-radius:20px; border:1px solid var(--border); }
+  .pcard:last-child  { border-radius:20px; border:1px solid var(--border); }
+  .pcard.featured    { margin:0; border-radius:20px; padding:40px 28px 36px; }
+  .pricing-trust { gap:20px; }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(min-width:1280px){:root{--sec-px:96px;--hero-px:96px;}}
+
+@media(max-width:1024px){
+  :root{--sec-py:72px;--sec-px:48px;--hero-py:64px;--hero-px:48px;}
+  .hero{flex-direction:column;align-items:center;text-align:center;min-height:auto;gap:48px;}
+  .hero-content{max-width:100%;}
+  .hero-pills,.hero-btns{justify-content:center;}
+  .hero-secondary-img{display:none;}
+  .fbadge{display:none;} .live-pill{display:none;}
+  .hero-visual{width:100%;} .hvw{width:100%;}
+  .hero-main-img{width:100%;height:auto;}
+  .why-grid,.steps-grid,.feat-grid,.test-grid{grid-template-columns:repeat(2,1fr);}
+  .why-stats{flex-wrap:wrap;}
+  .why-stat{flex:1 1 40%;}
+  .steps-page-grid{grid-template-columns:1fr;}
+  .perf{flex-direction:column;gap:48px;}
+  .perf-v{justify-content:center;width:100%;}
+  .perf-wrap{max-width:100%;}
+  .pfloat{right:0;}
+  .mob{flex-direction:column;gap:40px;text-align:center;}
+  .mob-r .stitle{text-align:center!important;}
+  .mob-r p{margin-left:auto;margin-right:auto;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:36px;}
+  .how-row::before{display:none;}
+  .how-row{flex-direction:column;gap:32px;align-items:center;}
+}
+
+@media(max-width:768px){
+  :root{--sec-py:56px;--sec-px:24px;--hero-py:52px;--hero-px:24px;}
+  .nav-links,.nav-actions{display:none;}
+  .hamburger{display:flex;}
+  .nav-inner{padding:0 24px;}
+  .hero-main-img{height:auto;}
+  .why-grid,.feat-grid,.test-grid{grid-template-columns:1fr 1fr;gap:16px;}
+  .steps-grid{grid-template-columns:1fr 1fr;gap:14px;}
+  .why-stats{flex-direction:column;}
+  .why-stat{border-right:none;border-bottom:1px solid #E9F2FD;}
+  .why-stat:last-child{border-bottom:none;}
+  .perf-main-img{height:240px;}
+  .pfloat{display:none;}
+  .mob-phone-img{height:300px;width:200px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+  .page-hero{padding:52px 24px 60px;}
+}
+
+@media(max-width:480px){
+  :root{--sec-py:48px;--sec-px:20px;--hero-py:44px;--hero-px:20px;}
+  .nav-inner{padding:0 20px;}
+  .logo-text{font-size:16px;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .hero-btns .btn-primary,.hero-btns .btn-ghost{width:100%;justify-content:center;}
+  .hero-main-img{height:auto;}
+  .why-grid,.steps-grid,.feat-grid,.test-grid{grid-template-columns:1fr;}
+  .scard-arrow{display:none;}
+  .step-topics{display:none;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  footer{padding:48px 20px 24px;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+  .steps-page-grid{grid-template-columns:1fr;}
+}
+@media(max-width:360px){
+  .hero h1{font-size:28px;} .stitle{font-size:24px;} .logo-text{display:none;}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ██  ANIMATION SYSTEM — HOME PAGE ONLY
+═══════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(36px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes fadeIn{
+  from{opacity:0;}to{opacity:1;}
+}
+@keyframes slideRight{
+  from{opacity:0;transform:translateX(-32px);}
+  to{opacity:1;transform:translateX(0);}
+}
+@keyframes slideLeft{
+  from{opacity:0;transform:translateX(32px);}
+  to{opacity:1;transform:translateX(0);}
+}
+@keyframes scaleIn{
+  from{opacity:0;transform:scale(.88);}
+  to{opacity:1;transform:scale(1);}
+}
+@keyframes pulse-dot{
+  0%,100%{transform:scale(1);opacity:1;}
+  50%{transform:scale(1.6);opacity:.5;}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-14px);}
+}
+@keyframes float2{
+  0%,100%{transform:translateY(0px) rotate(0deg);}
+  33%{transform:translateY(-10px) rotate(2deg);}
+  66%{transform:translateY(-6px) rotate(-2deg);}
+}
+@keyframes orb-drift{
+  0%,100%{transform:translate(0,0) scale(1);}
+  25%{transform:translate(20px,-18px) scale(1.04);}
+  50%{transform:translate(10px,14px) scale(.97);}
+  75%{transform:translate(-14px,-8px) scale(1.02);}
+}
+@keyframes orb-drift2{
+  0%,100%{transform:translate(0,0) scale(1);}
+  30%{transform:translate(-16px,12px) scale(1.05);}
+  60%{transform:translate(18px,-10px) scale(.96);}
+}
+@keyframes shimmer{
+  0%{background-position:-200% center;}
+  100%{background-position:200% center;}
+}
+@keyframes badge-bounce{
+  0%,100%{transform:translateY(0);}
+  40%{transform:translateY(-7px);}
+  60%{transform:translateY(-4px);}
+}
+@keyframes ecg{
+  0%{stroke-dashoffset:1000;}
+  100%{stroke-dashoffset:0;}
+}
+@keyframes typewriter-blink{
+  0%,100%{opacity:1;}50%{opacity:0;}
+}
+@keyframes count-up{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes spin-slow{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+@keyframes gradient-shift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+@keyframes particles-drift{
+  0%{transform:translateY(0) translateX(0);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:.6;}
+  100%{transform:translateY(-120px) translateX(20px);opacity:0;}
+}
+@keyframes wave-in{
+  from{clip-path:inset(0 100% 0 0);}
+  to{clip-path:inset(0 0% 0 0);}
+}
+@keyframes ping{
+  0%{transform:scale(1);opacity:.8;}
+  100%{transform:scale(2.4);opacity:0;}
+}
+@keyframes heart-beat{
+  0%,100%{transform:scale(1);}
+  14%{transform:scale(1.15);}
+  28%{transform:scale(1);}
+  42%{transform:scale(1.1);}
+  56%{transform:scale(1);}
+}
+
+/* ── Scroll-reveal base states ── */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.revealed{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal-left.revealed{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal-right.revealed{opacity:1;transform:translateX(0);}
+.reveal-scale{opacity:0;transform:scale(.9);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+.reveal-scale.revealed{opacity:1;transform:scale(1);}
+
+/* stagger children */
+.stagger-children > *{opacity:0;transform:translateY(30px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+.stagger-children.revealed > *:nth-child(1){opacity:1;transform:translateY(0);transition-delay:.05s;}
+.stagger-children.revealed > *:nth-child(2){opacity:1;transform:translateY(0);transition-delay:.15s;}
+.stagger-children.revealed > *:nth-child(3){opacity:1;transform:translateY(0);transition-delay:.25s;}
+.stagger-children.revealed > *:nth-child(4){opacity:1;transform:translateY(0);transition-delay:.35s;}
+
+/* ── Hero entry animations ── */
+#page-home .hero-badge    { animation:fadeUp .7s .1s both cubic-bezier(.22,1,.36,1); }
+#page-home .hero h1       { animation:fadeUp .8s .22s both cubic-bezier(.22,1,.36,1); }
+#page-home .hero-sub      { animation:fadeUp .7s .36s both cubic-bezier(.22,1,.36,1); }
+#page-home .hero-desc     { animation:fadeUp .7s .46s both cubic-bezier(.22,1,.36,1); }
+#page-home .hero-pills    { animation:fadeUp .7s .56s both cubic-bezier(.22,1,.36,1); }
+#page-home .hero-btns     { animation:fadeUp .7s .66s both cubic-bezier(.22,1,.36,1); }
+#page-home .hero-visual   { animation:slideLeft .9s .3s both cubic-bezier(.22,1,.36,1); }
+
+/* ── Animated green dot pulse ── */
+.bdot { animation:pulse-dot 2s ease-in-out infinite; }
+
+/* ── Live pill heartbeat ── */
+.live-pill { animation:heart-beat 1.6s ease-in-out infinite; }
+
+/* ── Floating hero image ── */
+#page-home .hvw { animation:float2 5s ease-in-out infinite; }
+
+/* ── Floating badges bounce in then float ── */
+#page-home .fbadge:first-of-type {
+  animation:fadeUp .6s .9s both cubic-bezier(.22,1,.36,1), badge-bounce 4s 1.5s ease-in-out infinite;
+}
+#page-home .fbadge:last-of-type {
+  animation:fadeUp .6s 1.1s both cubic-bezier(.22,1,.36,1), badge-bounce 4.5s 2s ease-in-out infinite;
+}
+
+/* ── Animated gradient hero h1 span ── */
+#page-home .hero h1 span {
+  background:linear-gradient(90deg,#60A5FA,#38BDF8,#7DD3FC,#60A5FA);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 3s linear infinite;
+}
+
+/* ── Glow orbs animate ── */
+#page-home .hero-glow1 { animation:orb-drift 9s ease-in-out infinite; }
+#page-home .hero-glow2 { animation:orb-drift2 11s ease-in-out infinite; }
+
+/* ── Particle canvas overlay on hero ── */
+#hero-particles {
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+}
+
+/* ── ECG heartbeat bar between hero and why ── */
+.ecg-bar {
+  width:100%; background:var(--navy); padding:0; line-height:0; overflow:hidden;
+  position:relative; height:80px; display:flex; align-items:center;
+}
+.ecg-bar svg {
+  width:100%; height:80px; display:block;
+}
+.ecg-line {
+  fill:none; stroke:#1E5FBE; stroke-width:2;
+  stroke-dasharray:1000; stroke-dashoffset:1000;
+  filter:drop-shadow(0 0 6px rgba(96,165,250,.7));
+}
+.ecg-line.animated { animation:ecg 3s linear forwards; }
+
+/* ── Animated stats counters ── */
+.why-stat-num.counting { animation:count-up .4s ease both; }
+
+/* ── Typewriter cursor on hero-sub ── */
+.typewriter-cursor {
+  display:inline-block; width:2px; height:1em;
+  background:#60A5FA; margin-left:3px; vertical-align:text-bottom;
+  animation:typewriter-blink .8s step-end infinite;
+}
+
+/* ── Pill hover micro-bounce ── */
+#page-home .hero-pill {
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1), background .2s;
+  cursor:default;
+}
+#page-home .hero-pill:hover { transform:scale(1.08) translateY(-2px); background:rgba(255,255,255,.14); }
+
+/* ── Why cards stagger + hover lift ── */
+#page-home .wcard {
+  transition:box-shadow .3s,transform .3s cubic-bezier(.34,1.56,.64,1),opacity .6s,transform .6s;
+}
+
+/* ── Steps section floating background orbs ── */
+.steps-orb {
+  position:absolute; border-radius:50%; pointer-events:none;
+  animation:orb-drift 13s ease-in-out infinite;
+}
+
+/* ── Step cards stagger ── */
+#page-home .scard {
+  transition:background .25s,border-color .25s,transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+}
+
+/* ── Performance section animated progress bar ── */
+.anim-bar-wrap {
+  margin-top:24px; display:flex; flex-direction:column; gap:12px;
+}
+.anim-bar-row { display:flex; flex-direction:column; gap:5px; }
+.anim-bar-label { display:flex; justify-content:space-between; font-size:12px; font-weight:600; color:var(--navy); }
+.anim-bar-track { height:7px; background:#E8F1FC; border-radius:100px; overflow:hidden; }
+.anim-bar-fill {
+  height:100%; border-radius:100px; width:0%;
+  transition:width 1.4s cubic-bezier(.22,1,.36,1);
+}
+
+/* ── Animated spinning ring on logo icon ── */
+#page-home .logo-icon-ring {
+  position:absolute; inset:-4px; border-radius:14px;
+  border:2px solid transparent;
+  border-top-color:#60A5FA; border-right-color:transparent;
+  animation:spin-slow 3s linear infinite;
+  pointer-events:none;
+}
+
+/* ── Scroll progress bar at top ── */
+#scroll-progress {
+  position:fixed; top:66px; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--cobalt),#60A5FA,#38BDF8);
+  transform-origin:left; transform:scaleX(0);
+  z-index:999; pointer-events:none;
+  transition:transform .05s linear;
+}
+
+/* ── Reduced motion override ── */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:opacity .3s,transform .3s!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
+
+<!-- ══════════════════════════════════════════
+     NAV (shared, always visible)
+══════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo" onclick="navigate('home')">
+      <img class="logo-icon" src="https://www.medicospira.com/icon_w.PNG" alt="MedicoSpira">
+      <span class="logo-text">Medico<span>spira</span></span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a id="nav-home"     onclick="navigate('home')">Home</a></li>
+      <li><a id="nav-steps"    onclick="navigate('steps')">USMLE Guide</a></li>
+      <li><a id="nav-pricing"  onclick="navigate('pricing')">Pricing</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="nav-signin" onclick="openLoginModal()">Sign In</button>
+      <button class="btn-primary" onclick="openStepModal()">Start Free Trial →</button>
+    </div>
+
+    <button class="hamburger" id="ham" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-drawer" id="drawer">
+    <a id="dnav-home" onclick="navigate('home')">Home</a>
+    <a id="dnav-steps"    onclick="navigate('steps')">USMLE Guide</a>
+    <a id="dnav-pricing"  onclick="navigate('pricing')">Pricing</a>
+    <a onclick="openLoginModal()">Sign In</a>
+    <button class="btn-primary" onclick="openStepModal()">Start Free Trial →</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div class="page" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="hero-particles"></canvas>
+    <div class="hero-glow1"></div><div class="hero-glow2"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="bdot"></span>Trusted by 30,000+ Medical Students</div>
+      <h1>Master Your <span>USMLE</span></h1>
+      <p class="hero-sub">Score Higher, Study Smarter</p>
+      <p class="hero-desc">Join <strong>30,000+ students</strong> who improved their scores with our <strong>AI-powered platform</strong>. Get instant AI-powered feedback, personalized insights, and unlimited practice.</p>
+      <div class="hero-pills">
+        <div class="hero-pill">🤖 AI-POWERED</div>
+        <div class="hero-pill">∞ UNLIMITED</div>
+        <div class="hero-pill">📊 ANALYTICS</div>
+      </div>
+      <div class="hero-btns">
+        <button class="btn-primary" style="font-size:15px;padding:14px 28px;" onclick="openStepModal()">START FREE TRIAL →</button>
+        <button class="btn-ghost" onclick="navigate('steps')">▶ Explore USMLE Guide</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hvw">
+        <img class="hero-main-img" src="https://www.medicospira.com/HOME_ph1.png" alt="MedicoSpira Platform UI">
+        <div class="fbadge" style="bottom:-20px;right:20px;">
+          <div class="ficon" style="background:#EBF2FC;">👥</div>
+          <div><div class="flbl">ACTIVE USERS</div><div class="fval">2,847 <span style="color:#16A34A;font-size:11px;">↑12%</span></div></div>
+        </div>
+        <div class="fbadge" style="bottom:-20px;left:-16px;">
+          <div class="ficon" style="background:#DCFCE7;">✅</div>
+          <div><div class="flbl">SUCCESS RATE</div><div class="fval" style="font-size:13px;">98% Pass Rate</div></div>
+        </div>
+        <div class="live-pill" style="top:-14px;right:20px;">LIVE</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECG HEARTBEAT BAR -->
+  <div class="ecg-bar" id="ecg-bar">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="ecg-line" id="ecg-path"
+        d="M0,40 L120,40 L150,40 L165,10 L180,70 L195,20 L210,55 L225,40
+           L360,40 L390,40 L405,10 L420,70 L435,20 L450,55 L465,40
+           L600,40 L630,40 L645,10 L660,70 L675,20 L690,55 L705,40
+           L840,40 L870,40 L885,10 L900,70 L915,20 L930,55 L945,40
+           L1080,40 L1110,40 L1125,10 L1140,70 L1155,20 L1170,55 L1185,40
+           L1440,40"
+      />
+    </svg>
+  </div>
+
+  <!-- WHY -->
+  <section class="why">
+    <div class="why-head reveal">
+      <div class="stag">WHY CHOOSE US</div>
+      <h2 class="stitle">Why Choose <span>Medicospira</span></h2>
+      <p class="sdesc" style="max-width:520px;margin:0 auto;">Elevate your USMLE prep with tools designed to optimize your study experience and maximize your score.</p>
+    </div>
+    <div class="why-stats reveal" style="transition-delay:.15s;">
+      <div class="why-stat"><div class="why-stat-num" data-target="30000" data-suffix="+">30,000+</div><div class="why-stat-lbl">Students Enrolled</div></div>
+      <div class="why-stat"><div class="why-stat-num" data-target="98" data-suffix="%">98%</div><div class="why-stat-lbl">Pass Rate</div></div>
+      <div class="why-stat"><div class="why-stat-num" data-target="10000" data-suffix="+">10,000+</div><div class="why-stat-lbl">Practice Questions</div></div>
+      <div class="why-stat"><div class="why-stat-num" data-target="4.9" data-suffix="★">4.9★</div><div class="why-stat-lbl">Average Rating</div></div>
+    </div>
+    <div class="why-grid stagger-children">
+      <div class="wcard"><div class="wcard-stripe stripe-1"></div><div class="wcard-body"><div class="wicon ic1"><svg viewBox="0 0 24 24" fill="none" stroke="#1E5FBE" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><p class="wcard-title">User-Friendly</p><p class="wcard-desc">Access interactive dashboards with a platform built for your learning convenience.</p><span class="wcard-link" onclick="navigate('steps')">Learn more →</span></div></div>
+      <div class="wcard"><div class="wcard-stripe stripe-2"></div><div class="wcard-body"><div class="wicon ic2"><svg viewBox="0 0 24 24" fill="none" stroke="#0891B2" stroke-width="1.8" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><p class="wcard-title">Streamlined</p><p class="wcard-desc">A clean, intuitive design that lets you focus on learning — not navigating menus.</p><span class="wcard-link" onclick="navigate('steps')">Learn more →</span></div></div>
+      <div class="wcard"><div class="wcard-stripe stripe-3"></div><div class="wcard-body"><div class="wicon ic3"><svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.8" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><p class="wcard-title">Fast Loading</p><p class="wcard-desc">Lightning-fast loading times for study sessions that keep pace with your goals.</p><span class="wcard-link" onclick="navigate('steps')">Learn more →</span></div></div>
+      <div class="wcard"><div class="wcard-stripe stripe-4"></div><div class="wcard-body"><div class="wicon ic4"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><p class="wcard-title">Comprehensive</p><p class="wcard-desc">Unlimited access to all resources, questions, and tools across every USMLE step.</p><span class="wcard-link" onclick="navigate('steps')">Learn more →</span></div></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec sec-center reveal" style="background:white;">
+    <div class="stag">HOW IT WORKS</div>
+    <h2 class="stitle">Your Path to <span>USMLE Success</span></h2>
+    <p class="sdesc">Four simple steps from signup to exam-day confidence.</p>
+    <div class="how-row" style="margin-top:52px;">
+      <div class="how-step"><div class="how-num">1</div><h4>Create Account</h4><p>Select your USMLE step and sign up in seconds to get instant access to your QBank.</p></div>
+      <div class="how-step"><div class="how-num">2</div><h4>Customize Your Test</h4><p>Choose your subjects, systems, and topics, then set the number of questions to match your study goals.</p></div>
+      <div class="how-step"><div class="how-num">3</div><h4>Practice & Improve</h4><p>Create your test and start solving questions. Review detailed explanations with Ai, focus on incorrect answers, and strengthen weak areas.</p></div>
+      <div class="how-step"><div class="how-num">4</div><h4>Master & Succeed</h4><p>Reset and retake questions for a second round. Track your progress, boost your score, and walk into the USMLE with confidence.</p></div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps">
+    <div class="steps-glow"></div>
+    <div class="steps-orb" style="width:180px;height:180px;background:radial-gradient(circle,rgba(96,165,250,.12),transparent 70%);top:15%;left:5%;animation-duration:14s;"></div>
+    <div class="steps-orb" style="width:120px;height:120px;background:radial-gradient(circle,rgba(6,182,212,.10),transparent 70%);bottom:20%;right:8%;animation-duration:10s;animation-direction:reverse;"></div>
+    <div class="steps-eyebrow reveal">3 COMPREHENSIVE EXAMS</div>
+    <h2 class="stitle reveal" style="transition-delay:.1s;">Master Every <span>USMLE Step</span></h2>
+    <p class="sdesc reveal" style="transition-delay:.2s;">Comprehensive coverage with thousands of practice questions for each exam</p>
+    <div class="carousel-row reveal" style="transition-delay:.25s;"><div class="c-arrow">‹</div><div class="c-dot-a"></div><div class="c-dot-i"></div><div class="c-arrow">›</div></div>
+    <div class="steps-divider reveal" style="transition-delay:.3s;"></div>
+    <div class="steps-grid stagger-children">
+      <div class="scard s1"><div class="step-num">01</div><div class="sicon si1"><svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><h3>Step 1</h3><p class="ssub">Basic Medical Sciences</p><button class="btn-primary" style="margin-top:16px;font-size:13px;padding:10px 22px;" onclick="navigate('steps')">Start Step 1 →</button></div>
+      <div class="scard s2"><div class="step-num">02</div><div class="sicon si2"><svg viewBox="0 0 24 24" fill="none" stroke="#67E8F9" stroke-width="1.8" stroke-linecap="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11m0 0H5m4 0h5m5-11v11m0 0h-5m5 0h-3"/><path d="M3 9h18M3 15h18"/></svg></div><h3>Step 2 CK</h3><p class="ssub">Clinical Knowledge</p><button class="btn-primary" style="margin-top:16px;font-size:13px;padding:10px 22px;" onclick="navigate('steps')">Start Step 2 →</button></div>
+      <div class="scard s4"><div class="step-num">03</div><div class="sicon si4"><svg viewBox="0 0 24 24" fill="none" stroke="#FDE68A" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Step 3</h3><p class="ssub">Advanced Clinical Medicine</p><button class="btn-primary" style="margin-top:16px;font-size:13px;padding:10px 22px;" onclick="navigate('steps')">Start Step 3 →</button></div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE (commented out)
+  <section class="perf">
+    <div class="perf-c reveal-left">
+      <div class="stag">PERFORMANCE TRACKING</div>
+      <h2 class="stitle" style="text-align:left;">Track Your <span>Progress</span></h2>
+      <p style="color:var(--text-muted);line-height:1.75;font-size:15px;max-width:460px;margin-top:10px;">Chart your strengths and areas for improvement with instant reports. Each self-assessment provides a detailed analysis to focus your study efforts.</p>
+      <div class="anim-bar-wrap" id="score-bars">
+        <div class="anim-bar-row"><div class="anim-bar-label"><span>Biochemistry</span><span>92%</span></div><div class="anim-bar-track"><div class="anim-bar-fill" data-width="92" style="background:linear-gradient(90deg,#1E5FBE,#60A5FA);"></div></div></div>
+        <div class="anim-bar-row"><div class="anim-bar-label"><span>Pathology</span><span>78%</span></div><div class="anim-bar-track"><div class="anim-bar-fill" data-width="78" style="background:linear-gradient(90deg,#06B6D4,#67E8F9);"></div></div></div>
+        <div class="anim-bar-row"><div class="anim-bar-label"><span>Pharmacology</span><span>85%</span></div><div class="anim-bar-track"><div class="anim-bar-fill" data-width="85" style="background:linear-gradient(90deg,#7C3AED,#C4B5FD);"></div></div></div>
+        <div class="anim-bar-row"><div class="anim-bar-label"><span>Microbiology</span><span>70%</span></div><div class="anim-bar-track"><div class="anim-bar-fill" data-width="70" style="background:linear-gradient(90deg,#059669,#6EE7B7);"></div></div></div>
+      </div>
+      <div class="flist" style="margin-top:20px;">
+        <div class="fi"><div class="fiicon">📊</div><div><h4>Detailed Performance Analytics</h4><p>Comprehensive insights into your performance across all USMLE steps</p></div></div>
+        <div class="fi"><div class="fiicon b">🎯</div><div><h4>Targeted Study Recommendations</h4><p>Personalized suggestions based on your performance patterns</p></div></div>
+        <div class="fi"><div class="fiicon c">🏆</div><div><h4>Progress Milestones</h4><p>Celebrate achievements and track your improvement over time</p></div></div>
+      </div>
+      <div style="margin-top:28px;"><button class="btn-outline" onclick="navigate('steps')">Explore USMLE Guide →</button></div>
+    </div>
+    <div class="perf-v reveal-right">
+      <div class="perf-wrap">
+        <div class="ipl perf-main-img" style="width:100%;height:320px;border-radius:20px;box-shadow:var(--shadow-md);">
+          <svg width="40" height="40" fill="none" stroke="#1E5FBE" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 12l4-4 4 4 4-6 4 4"/><path d="M3 20h18"/></svg>
+          📈 Analytics / Score Chart
+          <span class="ipl-lbl">Before → After score graph · 920 × 640 px</span>
+        </div>
+        <div class="pfloat"><div class="pgreen"></div><div><div class="plbl">Progress</div><div class="pval">+23%</div></div></div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- TRUSTED BY STUDENTS -->
+  <section class="sec reveal" style="background:var(--sky-pale);">
+    <div class="sec-center" style="margin-bottom:48px;">
+      <div class="stag">STUDENT STORIES</div>
+      <h2 class="stitle">Trusted by <span>30,000+ Students</span></h2>
+    </div>
+    <div class="test-grid">
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><p>"Medicospira's AI-Powered qbank was the single biggest factor in my Step 1 score. The explanations are incredibly detailed and the spaced repetition actually works."</p><div class="tcard-author"><div class="tcard-avatar">AM</div><div><div class="tcard-name">Aisha M.</div><div class="tcard-role">Step 1 — Score: 256</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><p>"The question bank is incredibly thorough and the AI-powered feedback pinpointed exactly what I needed to review. Passed Step 3 on my first try with a score I'm proud of."</p><div class="tcard-author"><div class="tcard-avatar">SP</div><div><div class="tcard-name">Sara P.</div><div class="tcard-role">Step 3 — Score: 235</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><p>"Just passed Step 1! The support and guidance from the Medicospira community made all the difference. The practice questions and detailed explanations gave me the confidence I needed on exam day."</p><div class="tcard-author"><div class="tcard-avatar">JN</div><div><div class="tcard-name">Jen</div><div class="tcard-role">Step 1 — Passed</div></div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:40px;"><button class="btn-primary" style="font-size:15px;padding:14px 32px;" onclick="openStepModal()">Start Free Trial →</button></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="logo" onclick="navigate('home')" style="cursor:pointer;">
+          <img class="logo-icon" src="https://www.medicospira.com/icon_w.PNG" alt="MedicoSpira">
+          <span class="logo-text">Medico<span>spira</span></span>
+        </div>
+        <p class="footer-tagline">Your complete solution for USMLE preparation. Score higher with AI-Powered learning and expert guidance.</p>
+        <div class="soc"><a class="sb" href="https://t.me/studentdoctor" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Group</a><a class="sb" href="https://t.me/medicospirach" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Channel</a><a class="sb" href="https://t.me/James_Anderson2021" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Support</a></div>
+      </div>
+      <div class="fcol"><h5>Resources</h5><ul><li><a onclick="navigate('steps')">USMLE Guide</a></li></ul></div>
+      <div class="fcol"><h5>Support</h5><ul><li><a href="https://t.me/James_Anderson2021" target="_blank">Telegram Support</a></li><li><a onclick="navigate('privacy')">Privacy Policy</a></li><li><a onclick="navigate('terms')">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Medicospira. All rights reserved.</span><span>Secured by <strong style="color:rgba(255,255,255,.70)">PayPal</strong> 🅿️</span></div>
+  </footer>
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: USMLE STEPS
+══════════════════════════════════════════ -->
+<div class="page" id="page-steps">
+  <div class="page-hero">
+    <div class="page-hero-glow"></div><div class="page-hero-glow2"></div>
+    <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>/</span><span style="color:white;">USMLE Guide</span></div>
+    <div class="eyebrow">YOUR USMLE GUIDE</div>
+    <h1>Your Complete <span>USMLE Guide</span></h1>
+    <p>Everything you need to know about the USMLE — what each step covers, how to prepare, and the tools to get you there.</p>
+  </div>
+
+  <!-- USMLE GUIDE -->
+  <section class="sec" style="background:white;">
+    <div class="sec-center" style="margin-bottom:36px;">
+      <div class="stag">WHAT IS THE USMLE?</div>
+      <h2 class="stitle">Understanding the <span>USMLE</span></h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:20px;">The <strong style="color:var(--navy);">United States Medical Licensing Examination (USMLE)</strong> is a three-step examination required for medical licensure in the United States. It assesses a physician's ability to apply knowledge, concepts, and principles that are essential for safe and effective patient care.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px;" class="guide-grid">
+        <div style="background:var(--sky-bg);border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;margin-bottom:10px;">📘</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Step 1</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">Tests foundational science concepts — anatomy, physiology, biochemistry, pharmacology, pathology, and microbiology. Taken during or after the second year of medical school.</p>
+          <button class="btn-primary" style="margin-top:14px;font-size:12px;padding:8px 18px;" onclick="openStepModal()">Start Step 1 →</button>
+        </div>
+        <div style="background:var(--sky-bg);border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;margin-bottom:10px;">🏥</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Step 2 CK</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">Assesses clinical knowledge and the ability to provide patient care under supervision. Covers internal medicine, surgery, pediatrics, psychiatry, and OB/GYN. Taken in the fourth year.</p>
+          <button class="btn-primary" style="margin-top:14px;font-size:12px;padding:8px 18px;" onclick="openStepModal()">Start Step 2 →</button>
+        </div>
+        <div style="background:var(--sky-bg);border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;margin-bottom:10px;">🎓</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Step 3</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">The final licensing exam, testing independent patient management. Covers biostatistics, clinical case management, and pharmacotherapy. Taken during residency training.</p>
+          <button class="btn-primary" style="margin-top:14px;font-size:12px;padding:8px 18px;" onclick="openStepModal()">Start Step 3 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THE USMLE MATTERS -->
+  <section class="sec" style="background:var(--off-white);">
+    <div class="sec-center" style="margin-bottom:36px;">
+      <div class="stag">WHY IT MATTERS</div>
+      <h2 class="stitle">Why the USMLE Matters for <span>Your Career</span></h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:28px;">The USMLE is more than an exam — it's the gateway to practicing medicine in the United States. Your scores influence residency placement, specialty options, and long-term career trajectory. A strong USMLE performance opens doors to competitive specialties and top residency programs.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="guide-grid">
+        <div style="background:white;border-radius:16px;padding:24px;border:1px solid var(--border);text-align:center;">
+          <div style="font-size:32px;margin-bottom:12px;">🏆</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Residency Matching</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">USMLE scores are a key factor in the residency match process. Higher scores significantly increase your chances of matching into your preferred specialty and program.</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:24px;border:1px solid var(--border);text-align:center;">
+          <div style="font-size:32px;margin-bottom:12px;">💼</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Medical Licensure</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">Passing all three steps is required to obtain a medical license in the U.S. Without it, you cannot legally practice medicine regardless of your medical degree.</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:24px;border:1px solid var(--border);text-align:center;">
+          <div style="font-size:32px;margin-bottom:12px;">🌍</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">International Recognition</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">For IMGs (International Medical Graduates), strong USMLE scores are essential for ECFMG certification and gaining a competitive edge in the U.S. residency match.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER PATHS & SPECIALTIES -->
+  <section class="sec" style="background:white;">
+    <div class="sec-center" style="margin-bottom:36px;">
+      <div class="stag">CAREER PATHS</div>
+      <h2 class="stitle">Specialties & <span>Score Requirements</span></h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:28px;">Different medical specialties have different competitive score thresholds. Understanding where you need to be helps you set realistic goals and plan your preparation effectively.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:800px;margin:0 auto;" class="career-grid">
+        <div style="background:var(--sky-bg);border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;">
+          <div style="font-size:24px;flex-shrink:0;">🫀</div>
+          <div><h5 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;">Cardiology / Surgery</h5><p style="font-size:12px;color:var(--text-muted);line-height:1.5;">Highly competitive — target 250+</p></div>
+        </div>
+        <div style="background:var(--sky-bg);border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;">
+          <div style="font-size:24px;flex-shrink:0;">🧠</div>
+          <div><h5 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;">Neurology / Radiology</h5><p style="font-size:12px;color:var(--text-muted);line-height:1.5;">Competitive — target 240+</p></div>
+        </div>
+        <div style="background:var(--sky-bg);border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;">
+          <div style="font-size:24px;flex-shrink:0;">👶</div>
+          <div><h5 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;">Pediatrics / Internal Medicine</h5><p style="font-size:12px;color:var(--text-muted);line-height:1.5;">Moderately competitive — target 230+</p></div>
+        </div>
+        <div style="background:var(--sky-bg);border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;">
+          <div style="font-size:24px;flex-shrink:0;">🏥</div>
+          <div><h5 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;">Family Medicine / Psychiatry</h5><p style="font-size:12px;color:var(--text-muted);line-height:1.5;">Accessible — target 220+</p></div>
+        </div>
+        <div style="background:var(--sky-bg);border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;">
+          <div style="font-size:24px;flex-shrink:0;">🦴</div>
+          <div><h5 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;">Orthopedics / Dermatology</h5><p style="font-size:12px;color:var(--text-muted);line-height:1.5;">Most competitive — target 255+</p></div>
+        </div>
+        <div style="background:var(--sky-bg);border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;">
+          <div style="font-size:24px;flex-shrink:0;">🔬</div>
+          <div><h5 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;">Pathology / Research</h5><p style="font-size:12px;color:var(--text-muted);line-height:1.5;">Less score-dependent — target 220+</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE FUTURE OF THE USMLE -->
+  <section class="sec" style="background:var(--off-white);">
+    <div class="sec-center" style="margin-bottom:36px;">
+      <div class="stag">LOOKING AHEAD</div>
+      <h2 class="stitle">The Future of the <span>USMLE</span></h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:28px;">The USMLE continues to evolve. In 2022, Step 1 transitioned to pass/fail scoring, shifting the competitive weight to Step 2 CK. This has reshaped how students approach their preparation and how programs evaluate applicants.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="guide-grid">
+        <div style="background:white;border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;margin-bottom:10px;">📊</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Step 1 is Pass/Fail</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">Since January 2022, Step 1 is reported as pass/fail only. While the pressure of a numeric score is removed, passing remains essential — and Step 2 CK now carries more weight.</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;margin-bottom:10px;">📈</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Step 2 CK is King</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">With Step 1 going pass/fail, Step 2 CK has become the primary differentiator in residency applications. A strong Step 2 CK score is now more important than ever for competitive specialties.</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;margin-bottom:10px;">🤖</div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">AI & Adaptive Testing</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">The NBME is exploring adaptive testing formats and AI-enhanced assessment. Future exams may better evaluate clinical reasoning and decision-making beyond multiple-choice questions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW DOCTORS BENEFIT -->
+  <section class="sec" style="background:white;">
+    <div class="sec-center" style="margin-bottom:36px;">
+      <div class="stag">LONG-TERM VALUE</div>
+      <h2 class="stitle">How the USMLE <span>Benefits Your Career</span></h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="display:flex;align-items:start;gap:20px;background:var(--sky-bg);border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;flex-shrink:0;margin-top:2px;">✅</div>
+          <div><h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;">Foundation for Clinical Excellence</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;">The knowledge tested on the USMLE directly translates to patient care. Doctors who prepare thoroughly report greater clinical confidence and better patient outcomes in their early career.</p></div>
+        </div>
+        <div style="display:flex;align-items:start;gap:20px;background:var(--sky-bg);border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;flex-shrink:0;margin-top:2px;">🌐</div>
+          <div><h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;">Global Mobility</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;">A U.S. medical license is recognized and respected worldwide. Completing the USMLE opens doors not only in the United States but also enhances your credentials for international opportunities.</p></div>
+        </div>
+        <div style="display:flex;align-items:start;gap:20px;background:var(--sky-bg);border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;flex-shrink:0;margin-top:2px;">💰</div>
+          <div><h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;">Higher Earning Potential</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;">Matching into a competitive specialty through strong USMLE scores can significantly impact lifetime earnings. The investment in preparation pays dividends throughout your entire medical career.</p></div>
+        </div>
+        <div style="display:flex;align-items:start;gap:20px;background:var(--sky-bg);border-radius:16px;padding:24px;border:1px solid var(--border);">
+          <div style="font-size:28px;flex-shrink:0;margin-top:2px;">🎯</div>
+          <div><h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px;">Fellowship & Subspecialty Access</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;">Strong USMLE performance follows you beyond residency. Fellowship programs in subspecialties often review original board scores, making your initial preparation a lasting investment.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sec" style="background:var(--off-white);">
+    <div style="text-align:center;padding:48px;background:linear-gradient(135deg,#1B2A4A,#1E3A6E);border-radius:24px;max-width:800px;margin:0 auto;">
+      <h3 style="font-size:28px;font-weight:800;color:white;margin-bottom:12px;">Ready to Start Preparing?</h3>
+      <p style="color:rgba(255,255,255,.65);margin-bottom:28px;font-size:16px;">Join 30,000+ students who trusted Medicospira for their USMLE journey.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" style="font-size:15px;padding:14px 28px;" onclick="openStepModal()">Start Free Trial →</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div><div class="logo" onclick="navigate('home')" style="cursor:pointer;"><img class="logo-icon" src="https://www.medicospira.com/icon_w.PNG" alt="MedicoSpira"><span class="logo-text">Medico<span>spira</span></span></div><p class="footer-tagline">Your complete solution for USMLE preparation.</p><div class="soc"><a class="sb" href="https://t.me/studentdoctor" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Group</a><a class="sb" href="https://t.me/medicospirach" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Channel</a><a class="sb" href="https://t.me/James_Anderson2021" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Support</a></div></div>
+      <div class="fcol"><h5>Support</h5><ul><li><a href="https://t.me/James_Anderson2021" target="_blank">Telegram Support</a></li><li><a onclick="navigate('privacy')">Privacy Policy</a></li><li><a onclick="navigate('terms')">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Medicospira. All rights reserved.</span><span>Secured by <strong style="color:rgba(255,255,255,.70)">PayPal</strong> 🅿️</span></div>
+  </footer>
+</div><!-- /page-steps -->
+
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: PRICING
+══════════════════════════════════════════ -->
+<div class="page" id="page-pricing">
+  <div class="page-hero">
+    <div class="page-hero-glow"></div><div class="page-hero-glow2"></div>
+    <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>/</span><span style="color:white;">Pricing</span></div>
+    <div class="eyebrow">SIMPLE PRICING</div>
+    <h1>Invest in Your <span>Medical Career</span></h1>
+    <p>One subscription. All steps included. Pick the plan that fits your goal.</p>
+  </div>
+
+  <section class="sec" style="background:var(--off-white);padding-top:56px;">
+
+    <!-- ── STEP SELECTOR TABS ── -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:0;max-width:560px;margin:0 auto 48px;background:white;border-radius:14px;border:1px solid var(--border);padding:6px;box-shadow:var(--shadow);">
+      <button id="ptab-step1"   onclick="switchPricingStep('step1')"   class="ptab ptab-active">📖 Step 1</button>
+      <button id="ptab-step2ck" onclick="switchPricingStep('step2ck')" class="ptab">🏥 Step 2 CK</button>
+      <button id="ptab-step3"   onclick="switchPricingStep('step3')"   class="ptab">⏰ Step 3</button>
+    </div>
+
+    <!-- ── Per-step notice ── -->
+    <div style="text-align:center;margin-bottom:40px;">
+      <span style="display:inline-flex;align-items:center;gap:8px;background:#DCFCE7;border:1px solid #86EFAC;border-radius:100px;padding:7px 18px;font-size:13px;font-weight:600;color:#16A34A;">
+        ✅ Separate subscriptions per step · Pick the duration that fits your study plan
+      </span>
+    </div>
+
+    <!-- ══ STEP 1 CARDS ROW ══ -->
+    <div id="pricing-step1" class="pricing-grid pricing-step-panel">
+
+      <!-- FREE -->
+      <div class="pcard">
+        <div class="pcard-step-badge" style="background:#EBF2FC;color:var(--cobalt);">📖 Step 1 · Free</div>
+        <div class="pcard-name">Free</div>
+        <div class="pcard-price"><sup>$</sup><span>0</span></div>
+        <div class="pcard-period">Forever free · no card needed</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Explore Step 1 before committing. Limited access for getting started.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>5 Premium Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>50 Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>5 Previous tests</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>No track of progress</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>No track of your usage</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Future updates</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Monthly status reports</div>
+        </div>
+        <a class="btn-outline" style="width:100%;justify-content:center;margin-top:auto;text-align:center;" href="/s1/login.php">Continue Free</a>
+      </div>
+
+      <!-- PLUS (weekly) -->
+      <div class="pcard featured">
+        <div class="pcard-popular">Most Popular</div>
+        <div class="pcard-step-badge" style="background:rgba(96,165,250,.18);color:#60A5FA;">📖 Step 1 · Plus</div>
+        <div class="pcard-name">Plus</div>
+        <div class="pcard-price"><sup>$</sup><span id="step1-plus-price">10.90</span></div>
+        <div class="pcard-period" id="step1-plus-period">per 1 week access</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Short-term full access — unlimited test blocks, notes and previous tests.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Previous tests</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your progress</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your usage</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Future updates</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Monthly status reports</div>
+        </div>
+        <select class="pplan-select" data-target="step1-plus" onchange="onPlanChange(this)">
+          <option data-price="10.90" data-period="per 1 week access">Weekly Qbank Step 1 · 1 Week ($10.90)</option>
+          <option data-price="15.00" data-period="per 2 weeks access">Weekly Qbank Step 1 · 2 Weeks ($15.00)</option>
+          <option data-price="18.50" data-period="per 3 weeks access">Weekly Qbank Step 1 · 3 Weeks ($18.50)</option>
+        </select>
+        <a class="btn-primary" style="margin-top:0;text-align:center;" href="/s1/login.php">Try It Now →</a>
+      </div>
+
+      <!-- PREMIUM (monthly) -->
+      <div class="pcard">
+        <div class="pcard-step-badge" style="background:#FEF3C7;color:#D97706;">📖 Step 1 · Premium 👑</div>
+        <div class="pcard-name" style="color:#D97706;">Premium</div>
+        <div class="pcard-price"><sup>$</sup><span id="step1-prem-price">29.90</span></div>
+        <div class="pcard-period" id="step1-prem-period">per 1 month access</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Long-term full access — everything in Plus, plus monthly status reports.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Previous tests</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your progress</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your usage</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Future updates</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Monthly status reports</div>
+        </div>
+        <select class="pplan-select" data-target="step1-prem" onchange="onPlanChange(this)">
+          <option data-price="29.90" data-period="per 1 month access">Monthly Qbank Step 1 · 1 Month ($29.90)</option>
+        </select>
+        <a class="btn-outline" style="width:100%;justify-content:center;margin-top:0;border-color:#D97706;color:#D97706;text-align:center;" href="/s1/login.php">Try It Now →</a>
+      </div>
+    </div><!-- /pricing-step1 -->
+
+    <!-- ══ STEP 2 CK CARDS ROW ══ -->
+    <div id="pricing-step2ck" class="pricing-grid pricing-step-panel" style="display:none;">
+
+      <!-- FREE -->
+      <div class="pcard">
+        <div class="pcard-step-badge" style="background:#CFFAFE;color:#0891B2;">🏥 Step 2 CK · Free</div>
+        <div class="pcard-name">Free</div>
+        <div class="pcard-price"><sup>$</sup><span>0</span></div>
+        <div class="pcard-period">Forever free · no card needed</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Sample Step 2 CK clinical content before committing.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>5 Premium Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>50 Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>5 Previous tests</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>No track of progress</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>No track of your usage</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Future updates</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Monthly status reports</div>
+        </div>
+        <a class="btn-outline" style="width:100%;justify-content:center;margin-top:auto;text-align:center;" href="/s2/login.php">Continue Free</a>
+      </div>
+
+      <!-- PLUS (weekly) -->
+      <div class="pcard featured" style="background:linear-gradient(160deg,#0a3040,#0a4f5e);">
+        <div class="pcard-popular">Most Popular</div>
+        <div class="pcard-step-badge" style="background:rgba(103,232,249,.15);color:#67E8F9;">🏥 Step 2 CK · Plus</div>
+        <div class="pcard-name" style="color:#67E8F9;">Plus</div>
+        <div class="pcard-price"><sup>$</sup><span id="step2ck-plus-price">10.90</span></div>
+        <div class="pcard-period" id="step2ck-plus-period">per 1 week access</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Short-term full access — unlimited test blocks, notes and previous tests.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Previous tests</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your progress</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your usage</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Future updates</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Monthly status reports</div>
+        </div>
+        <select class="pplan-select" data-target="step2ck-plus" onchange="onPlanChange(this)">
+          <option data-price="10.90" data-period="per 1 week access">Weekly Qbank Step 2 CK · 1 Week ($10.90)</option>
+          <option data-price="15.00" data-period="per 2 weeks access">Weekly Qbank Step 2 CK · 2 Weeks ($15.00)</option>
+          <option data-price="18.50" data-period="per 3 weeks access">Weekly Qbank Step 2 CK · 3 Weeks ($18.50)</option>
+        </select>
+        <a class="btn-primary" style="margin-top:0;background:linear-gradient(90deg,#06B6D4,#38BDF8);color:white;text-align:center;" href="/s2/login.php">Try It Now →</a>
+      </div>
+
+      <!-- PREMIUM (monthly) -->
+      <div class="pcard">
+        <div class="pcard-step-badge" style="background:#CFFAFE;color:#0891B2;">🏥 Step 2 CK · Premium 👑</div>
+        <div class="pcard-name" style="color:#D97706;">Premium</div>
+        <div class="pcard-price"><sup>$</sup><span id="step2ck-prem-price">29.90</span></div>
+        <div class="pcard-period" id="step2ck-prem-period">per 1 month access</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Long-term full access — everything in Plus, plus monthly status reports.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Previous tests</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your progress</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your usage</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Future updates</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Monthly status reports</div>
+        </div>
+        <select class="pplan-select" data-target="step2ck-prem" onchange="onPlanChange(this)">
+          <option data-price="29.90" data-period="per 1 month access">Monthly Qbank Step 2 CK · 1 Month ($29.90)</option>
+        </select>
+        <a class="btn-outline" style="width:100%;justify-content:center;margin-top:0;border-color:#D97706;color:#D97706;text-align:center;" href="/s2/login.php">Try It Now →</a>
+      </div>
+    </div><!-- /pricing-step2ck -->
+
+    <!-- ══ STEP 3 CARDS ROW ══ -->
+    <div id="pricing-step3" class="pricing-grid pricing-step-panel" style="display:none;">
+
+      <!-- FREE -->
+      <div class="pcard">
+        <div class="pcard-step-badge" style="background:#FEF3C7;color:#D97706;">⏰ Step 3 · Free</div>
+        <div class="pcard-name">Free</div>
+        <div class="pcard-price"><sup>$</sup><span>0</span></div>
+        <div class="pcard-period">Forever free · no card needed</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Try Step 3 content before committing. No credit card required.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>5 Premium Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>50 Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>5 Previous tests</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>No track of progress</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>No track of your usage</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Future updates</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Monthly status reports</div>
+        </div>
+        <a class="btn-outline" style="width:100%;justify-content:center;margin-top:auto;text-align:center;" href="/s3/login.php">Continue Free</a>
+      </div>
+
+      <!-- PLUS (weekly) -->
+      <div class="pcard featured" style="background:linear-gradient(160deg,#1a1200,#3d2a00);">
+        <div class="pcard-popular">Most Popular</div>
+        <div class="pcard-step-badge" style="background:rgba(253,230,138,.15);color:#FDE68A;">⏰ Step 3 · Plus</div>
+        <div class="pcard-name" style="color:#FDE68A;">Plus</div>
+        <div class="pcard-price"><sup>$</sup><span id="step3-plus-price">10.90</span></div>
+        <div class="pcard-period" id="step3-plus-period">per 1 week access</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Short-term full access — unlimited test blocks, notes and previous tests.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Previous tests</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your progress</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your usage</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Future updates</div>
+          <div class="pf dimmed"><div class="pf-x"><svg viewBox="0 0 12 12"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></div>Monthly status reports</div>
+        </div>
+        <select class="pplan-select" data-target="step3-plus" onchange="onPlanChange(this)">
+          <option data-price="10.90" data-period="per 1 week access">Weekly Qbank Step 3 · 1 Week ($10.90)</option>
+          <option data-price="15.00" data-period="per 2 weeks access">Weekly Qbank Step 3 · 2 Weeks ($15.00)</option>
+          <option data-price="18.50" data-period="per 3 weeks access">Weekly Qbank Step 3 · 3 Weeks ($18.50)</option>
+        </select>
+        <a class="btn-primary" style="margin-top:0;background:linear-gradient(90deg,#D97706,#F59E0B);color:white;text-align:center;" href="/s3/login.php">Try It Now →</a>
+      </div>
+
+      <!-- PREMIUM (monthly) -->
+      <div class="pcard">
+        <div class="pcard-step-badge" style="background:#FEF3C7;color:#D97706;">⏰ Step 3 · Premium 👑</div>
+        <div class="pcard-name" style="color:#D97706;">Premium</div>
+        <div class="pcard-price"><sup>$</sup><span id="step3-prem-price">29.90</span></div>
+        <div class="pcard-period" id="step3-prem-period">per 1 month access</div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-desc">Long-term full access — everything in Plus, plus monthly status reports.</div>
+        <div class="pcard-features">
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Test Blocks</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Notes views</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Unlimited Previous tests</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your progress</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Track your usage</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Future updates</div>
+          <div class="pf"><div class="pf-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Monthly status reports</div>
+        </div>
+        <select class="pplan-select" data-target="step3-prem" onchange="onPlanChange(this)">
+          <option data-price="29.90" data-period="per 1 month access">Monthly Qbank Step 3 · 1 Month ($29.90)</option>
+        </select>
+        <a class="btn-outline" style="width:100%;justify-content:center;margin-top:0;border-color:#D97706;color:#D97706;text-align:center;" href="/s3/login.php">Try It Now →</a>
+      </div>
+    </div><!-- /pricing-step3 -->
+
+
+    <!-- FAQ -->
+    <div class="sec-center" style="margin-bottom:32px;">
+      <div class="stag">COMMON QUESTIONS</div>
+      <h2 class="stitle">Frequently Asked <span>Questions</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What's the difference between Plus and Premium?</span><span class="faq-q-icon">+</span></div><div class="faq-a"><strong>Plus</strong> is billed per week (1, 2, or 3 weeks) and is ideal for short, intense revision windows. <strong>Premium</strong> is billed per month (1, 2, or 3 months) and adds <strong>Monthly Status Reports</strong> on top of everything in Plus. Both tiers give you unlimited test blocks, unlimited notes views, unlimited previous tests, progress tracking, usage tracking, and future updates.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is each step a separate subscription?</span><span class="faq-q-icon">+</span></div><div class="faq-a">Yes — Step 1, Step 2 CK, and Step 3 each have their own subscription. Subscribe to just the step you're preparing for, or bundle multiple steps by subscribing to each one individually.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How do I change the duration?</span><span class="faq-q-icon">+</span></div><div class="faq-a">Use the dropdown inside the Plus or Premium card to pick your duration. The price and billing caption update instantly. Then click <strong>Try It Now →</strong> to sign in and complete checkout via PayPal.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What does the Free tier include?</span><span class="faq-q-icon">+</span></div><div class="faq-a">The Free tier gives you 5 Premium Test Blocks, 50 Notes views, and 5 Previous tests. Progress tracking, usage tracking, future updates, and monthly status reports are not included — upgrade to Plus or Premium for the full experience.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What happens when my subscription expires?</span><span class="faq-q-icon">+</span></div><div class="faq-a">Your account automatically reverts to Free-tier limits. You can renew or upgrade at any time from the same page — no data is lost.</div></div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div><div class="logo" onclick="navigate('home')" style="cursor:pointer;"><img class="logo-icon" src="https://www.medicospira.com/icon_w.PNG" alt="MedicoSpira"><span class="logo-text">Medico<span>spira</span></span></div><p class="footer-tagline">Your complete solution for USMLE preparation.</p><div class="soc"><a class="sb" href="https://t.me/studentdoctor" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Group</a><a class="sb" href="https://t.me/medicospirach" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Channel</a><a class="sb" href="https://t.me/James_Anderson2021" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Support</a></div></div>
+            <div class="fcol"><h5>Support</h5><ul><li><a href="https://t.me/James_Anderson2021" target="_blank">Telegram Support</a></li><li><a onclick="navigate('privacy')">Privacy Policy</a></li><li><a onclick="navigate('terms')">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Medicospira. All rights reserved.</span><span>Secured by <strong style="color:rgba(255,255,255,.70)">PayPal</strong> 🅿️</span></div>
+  </footer>
+</div><!-- /page-pricing -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: PRIVACY POLICY
+══════════════════════════════════════════ -->
+<div class="page" id="page-privacy">
+  <div class="page-hero">
+    <div class="page-hero-glow"></div><div class="page-hero-glow2"></div>
+    <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>/</span><span style="color:white;">Privacy Policy</span></div>
+    <div class="eyebrow">LEGAL</div>
+    <h1>Privacy <span>Policy</span></h1>
+    <p>Last updated: April 2025 &nbsp;·&nbsp; Effective date: April 1, 2025</p>
+  </div>
+
+  <section class="sec" style="background:var(--off-white);">
+    <div style="max-width:800px;margin:0 auto;background:white;border-radius:24px;border:1px solid var(--border);padding:clamp(28px,5vw,56px);box-shadow:var(--shadow);">
+
+      <!-- Intro -->
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.80;margin-bottom:36px;padding:20px 24px;background:var(--sky-bg);border-radius:12px;border-left:4px solid var(--cobalt);">
+        We keep things simple: your data is yours. We only collect what we need to make Medicospira work for you, and we never sell it. Here's the full picture.
+      </p>
+
+      <!-- Sections -->
+      <div style="display:flex;flex-direction:column;gap:36px;">
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">What we collect</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;margin-bottom:12px;">Only the basics to run your account and personalise your learning:</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;padding:0;">
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Your account details</strong> — Name, email, and password (securely hashed).</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Your study activity</strong> — Scores, study time, and progress so we can build your personalised study plans.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Payment info</strong> — Handled securely by PayPal. We never see or store your card numbers.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Basic technical data</strong> — Browser type, device info, and cookies to keep things running smoothly.</span></li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">How we use it</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;margin-bottom:12px;">Everything we do with your data is to make your experience better:</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;padding:0;">
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>Power your personalised study plans and AI recommendations.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>Process payments and manage your subscription.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>Send you important emails like receipts and password resets.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>Keep the platform safe and secure.</span></li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">What we never do</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">🚫 Sell your data</span><br>Never have, never will.</div>
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">🚫 Track you with ads</span><br>No advertising cookies, ever.</div>
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">🚫 Share unnecessarily</span><br>Only trusted partners who help us run the platform.</div>
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">🚫 Store card numbers</span><br>PayPal handles all payment details.</div>
+          </div>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">Your data, your control</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;margin-bottom:12px;">You can always:</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">📋 Access</span><br>Get a copy of your data.</div>
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">✏️ Correct</span><br>Fix anything that's wrong.</div>
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">🗑️ Delete</span><br>Remove your data entirely.</div>
+            <div style="padding:14px 16px;background:var(--sky-bg);border-radius:10px;font-size:13.5px;color:var(--navy);"><span style="font-weight:700;">📤 Export</span><br>Take your data with you.</div>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);margin-top:14px;">Just email us at <strong style="color:var(--cobalt);"><a href="mailto:support@medicospira.com" style="color:var(--cobalt);">support@medicospira.com</a></strong> or <strong style="color:var(--cobalt);"><a href="mailto:sales@medicospira.com" style="color:var(--cobalt);">sales@medicospira.com</a></strong> and we'll get back to you within 30 days.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">How we keep it safe</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">Your data is encrypted both in transit and at rest. We run regular security audits and use strict access controls. We also recommend using a strong password for your account.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">If you delete your account</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">Your personal data is deleted within 30 days. Some financial records may be kept longer as required by law.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">Questions?</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;margin-bottom:16px;">We're happy to help with any privacy questions.</p>
+          <div style="padding:20px 24px;background:var(--sky-bg);border-radius:12px;font-size:14px;color:var(--navy);line-height:1.80;">
+            <strong>Medicospira</strong><br>
+            📧 <a href="mailto:support@medicospira.com" style="color:var(--cobalt);">support@medicospira.com</a> | <a href="mailto:sales@medicospira.com" style="color:var(--cobalt);">sales@medicospira.com</a><br>
+            📍 Medicospira Ltd., United Kingdom
+          </div>
+        </div>
+
+      </div><!-- /sections -->
+    </div><!-- /card -->
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div><div class="logo" onclick="navigate('home')" style="cursor:pointer;"><img class="logo-icon" src="https://www.medicospira.com/icon_w.PNG" alt="MedicoSpira"><span class="logo-text">Medico<span>spira</span></span></div><p class="footer-tagline">Your complete solution for USMLE preparation.</p><div class="soc"><a class="sb" href="https://t.me/studentdoctor" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Group</a><a class="sb" href="https://t.me/medicospirach" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Channel</a><a class="sb" href="https://t.me/James_Anderson2021" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Support</a></div></div>
+      <div class="fcol"><h5>Resources</h5><ul><li><a onclick="navigate('steps')">USMLE Guide</a></li></ul></div>
+      <div class="fcol"><h5>Support</h5><ul><li><a href="https://t.me/James_Anderson2021" target="_blank">Telegram Support</a></li><li><a onclick="navigate('privacy')">Privacy Policy</a></li><li><a onclick="navigate('terms')">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Medicospira. All rights reserved.</span><span>Secured by <strong style="color:rgba(255,255,255,.70)">PayPal</strong> 🅿️</span></div>
+  </footer>
+</div><!-- /page-privacy -->
+
+<!-- ══════════════════════════════════════════
+     PAGE: TERMS OF SERVICE
+══════════════════════════════════════════ -->
+<div class="page" id="page-terms">
+  <div class="page-hero">
+    <div class="page-hero-glow"></div><div class="page-hero-glow2"></div>
+    <div class="breadcrumb"><a onclick="navigate('home')">Home</a><span>/</span><span style="color:white;">Terms of Service</span></div>
+    <div class="eyebrow">LEGAL</div>
+    <h1>Terms of <span>Service</span></h1>
+    <p>Last updated: April 2025 &nbsp;·&nbsp; Effective date: April 1, 2025</p>
+  </div>
+
+  <section class="sec" style="background:var(--off-white);">
+    <div style="max-width:800px;margin:0 auto;background:white;border-radius:24px;border:1px solid var(--border);padding:clamp(28px,5vw,56px);box-shadow:var(--shadow);">
+
+      <!-- Intro -->
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.80;margin-bottom:36px;padding:20px 24px;background:var(--sky-bg);border-radius:12px;border-left:4px solid var(--cobalt);">
+        These Terms of Service ("Terms") govern your access to and use of the <strong style="color:var(--navy);">Medicospira</strong> platform, website, and related services ("Service"). By creating an account or using the Service, you agree to be bound by these Terms. Please read them carefully. If you do not agree, you may not use the Service.
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:36px;">
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">1. Eligibility</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">You must be at least 18 years old and legally capable of entering into a binding agreement to use Medicospira. By using the Service, you represent and warrant that you meet these requirements. Medicospira is designed for medical students and healthcare professionals preparing for USMLE examinations.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">2. Account Registration</h2>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;padding:0;">
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>You must provide accurate, current, and complete information when creating your account.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>You are responsible for maintaining the confidentiality of your password and all activity under your account.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>One account per person. You may not share your account credentials or allow others to access your account.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span>Notify us immediately at <strong style="color:var(--cobalt);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="13606663637c6167537e76777a707c60637a61723d707c7e">[email&#160;protected]</a></strong> if you suspect unauthorised access to your account.</span></li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">3. Subscriptions & Payments</h2>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;padding:0;">
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Free Trial:</strong> New users receive a 7-day free trial with full Pro plan access. No payment required to start.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Billing:</strong> Paid subscriptions are billed monthly or annually in advance. All fees are non-refundable except as stated in our Refund Policy or where required by law.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Auto-Renewal:</strong> Subscriptions automatically renew unless cancelled at least 24 hours before the renewal date.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Price Changes:</strong> We will provide at least 30 days' notice before any price increases.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:var(--cobalt);font-weight:700;flex-shrink:0;">→</span><span><strong style="color:var(--navy);">Cancellation:</strong> Cancel at any time through your account settings. Access continues until the end of the current billing period.</span></li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">4. Acceptable Use</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;margin-bottom:12px;">You agree not to:</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;padding:0;">
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:#E11D48;font-weight:700;flex-shrink:0;">✕</span><span>Share, reproduce, distribute, or publicly display any platform content, questions, or materials without written permission.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:#E11D48;font-weight:700;flex-shrink:0;">✕</span><span>Use automated tools, bots, or scrapers to extract content from the platform.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:#E11D48;font-weight:700;flex-shrink:0;">✕</span><span>Attempt to reverse-engineer, decompile, or access the platform's source code or proprietary algorithms.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:#E11D48;font-weight:700;flex-shrink:0;">✕</span><span>Impersonate any person, misrepresent your credentials, or engage in fraudulent activity.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:#E11D48;font-weight:700;flex-shrink:0;">✕</span><span>Post abusive, harassing, or harmful content in community forums or discussion areas.</span></li>
+            <li style="display:flex;gap:10px;font-size:14.5px;color:var(--text-muted);line-height:1.70;"><span style="color:#E11D48;font-weight:700;flex-shrink:0;">✕</span><span>Violate any applicable local, national, or international law or regulation in connection with your use of the Service.</span></li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">5. Intellectual Property</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">All content on the Medicospira platform — including but not limited to practice questions, explanations, flashcards, study materials, software, graphics, and branding — is the exclusive intellectual property of Medicospira Ltd. or its licensors and is protected by copyright, trademark, and other applicable laws. Your subscription grants you a limited, non-exclusive, non-transferable, revocable licence to access and use the content for personal, non-commercial study purposes only.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">6. Educational Disclaimer</h2>
+          <div style="padding:18px 22px;background:#FEF3C7;border-radius:12px;border-left:4px solid #D97706;margin-bottom:16px;">
+            <p style="font-size:14px;color:#92400E;line-height:1.75;font-weight:500;">⚠️ <strong>Important:</strong> Medicospira is an educational preparation tool and is not a substitute for formal medical education, professional medical advice, diagnosis, or treatment. Content is designed for USMLE exam preparation purposes only.</p>
+          </div>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">Score predictions and performance estimates provided by our platform are statistical approximations only and do not guarantee actual examination results. Always consult qualified academic advisors regarding your examination readiness.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">7. Score Guarantee (Elite Plan)</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">Elite plan subscribers who (a) complete 100% of their assigned study modules, (b) complete all required mock examinations, (c) maintain consistent daily activity for at least 8 consecutive weeks, and (d) do not achieve their stated target score, may be eligible for a full refund. Claims must be submitted within 14 days of examination results. Medicospira reserves the right to verify completion data before processing any refund.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">8. Limitation of Liability</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">To the fullest extent permitted by applicable law, Medicospira shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of data, loss of revenue, or failure to achieve desired examination results, arising from your use of the Service. Our total liability to you for any claims arising from these Terms shall not exceed the total fees paid by you in the 12 months preceding the claim.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">9. Termination</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">You may delete your account at any time from your account settings. Medicospira reserves the right to suspend or terminate your account immediately, without notice, if you breach these Terms, engage in fraudulent activity, or otherwise misuse the Service. Upon termination, your right to access the platform ceases immediately, though these Terms survive termination where applicable.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">10. Governing Law</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">These Terms are governed by and construed in accordance with the laws of England and Wales, without regard to conflict of law principles. Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">11. Changes to These Terms</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;">We may update these Terms at any time. We will provide at least 14 days' notice of material changes via email or a prominent in-platform notification. Your continued use of the Service after the effective date constitutes acceptance of the updated Terms.</p>
+        </div>
+
+        <div class="policy-section">
+          <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--sky-mid);">12. Contact</h2>
+          <p style="font-size:14.5px;color:var(--text-muted);line-height:1.80;margin-bottom:16px;">For questions about these Terms, please contact us:</p>
+          <div style="padding:20px 24px;background:var(--sky-bg);border-radius:12px;font-size:14px;color:var(--navy);line-height:1.80;">
+            <strong>Medicospira – Legal Team</strong><br>
+            📧 <a href="/cdn-cgi/l/email-protection#b3dfd6d4d2dff3ded6d7dad0dcc0c3dac1d29dd0dcde" style="color:var(--cobalt);"><span class="__cf_email__" data-cfemail="dcb0b9bbbdb09cb1b9b8b5bfb3afacb5aebdf2bfb3b1">[email&#160;protected]</span></a><br>
+            📍 Medicospira Ltd., United Kingdom
+          </div>
+        </div>
+
+      </div><!-- /sections -->
+
+      <!-- Related links -->
+      <div style="margin-top:40px;padding:24px;background:var(--sky-bg);border-radius:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div>
+          <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">Related Policy</p>
+          <p style="font-size:13px;color:var(--text-muted);">Read how we handle your personal data.</p>
+        </div>
+        <button onclick="navigate('privacy')" class="btn-outline" style="white-space:nowrap;">Privacy Policy →</button>
+      </div>
+
+    </div><!-- /card -->
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div><div class="logo" onclick="navigate('home')" style="cursor:pointer;"><img class="logo-icon" src="https://www.medicospira.com/icon_w.PNG" alt="MedicoSpira"><span class="logo-text">Medico<span>spira</span></span></div><p class="footer-tagline">Your complete solution for USMLE preparation.</p><div class="soc"><a class="sb" href="https://t.me/studentdoctor" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Group</a><a class="sb" href="https://t.me/medicospirach" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Channel</a><a class="sb" href="https://t.me/James_Anderson2021" target="_blank" style="text-decoration:none;color:inherit;"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Support</a></div></div>
+      <div class="fcol"><h5>Resources</h5><ul><li><a onclick="navigate('steps')">USMLE Guide</a></li></ul></div>
+      <div class="fcol"><h5>Support</h5><ul><li><a href="https://t.me/James_Anderson2021" target="_blank">Telegram Support</a></li><li><a onclick="navigate('privacy')">Privacy Policy</a></li><li><a onclick="navigate('terms')">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Medicospira. All rights reserved.</span><span>Secured by <strong style="color:rgba(255,255,255,.70)">PayPal</strong> 🅿️</span></div>
+  </footer>
+</div><!-- /page-terms -->
+
+<!-- ══════════════════════════════════════════
+     STEP-PICKER MODAL (Start Free Trial popup)
+     → Replace the href values below with your real signup URLs
+══════════════════════════════════════════ -->
+<div class="step-modal-backdrop" id="step-modal" onclick="handleStepModalBackdrop(event)">
+  <div class="step-modal" role="dialog" aria-modal="true" aria-labelledby="step-modal-title">
+    <button class="step-modal-close" onclick="closeStepModal()" aria-label="Close">&times;</button>
+    <div class="step-modal-head">
+      <div class="stag">START FREE TRIAL</div>
+      <h3 id="step-modal-title">Which step are you <span>preparing for?</span></h3>
+      <p>Pick your USMLE step to begin — all plans unlock every step.</p>
+    </div>
+    <div class="step-modal-grid">
+
+      <div class="smcard s1">
+        <div class="smcard-icon">📖</div>
+        <div class="smcard-badge">Step 1 · 3,200+ Qs</div>
+        <h4>Step 1</h4>
+        <p>Basic Medical Sciences — foundation of all clinical reasoning.</p>
+        <a class="smcard-btn" href="/s1/signup.php">Sign Up Step 1 →</a>
+      </div>
+
+      <div class="smcard s2">
+        <div class="smcard-icon">🏥</div>
+        <div class="smcard-badge">Step 2 CK · 2,800+ Qs</div>
+        <h4>Step 2 CK</h4>
+        <p>Clinical Knowledge — applying science to patient care.</p>
+        <a class="smcard-btn" href="/s2/signup.php">Sign Up Step 2 →</a>
+      </div>
+
+      <div class="smcard s3">
+        <div class="smcard-icon">⏰</div>
+        <div class="smcard-badge">Step 3 · 2,400+ Qs</div>
+        <h4>Step 3</h4>
+        <p>Advanced Clinical Medicine — independent practice readiness.</p>
+        <a class="smcard-btn" href="/s3/signup.php">Sign Up Step 3 →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── LOGIN MODAL ── -->
+<div class="step-modal-backdrop" id="login-modal" onclick="handleLoginModalBackdrop(event)">
+  <div class="step-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+    <button class="step-modal-close" onclick="closeLoginModal()" aria-label="Close">&times;</button>
+    <div class="step-modal-head">
+      <div class="stag">WELCOME BACK</div>
+      <h3 id="login-modal-title">Sign in to your <span>account</span></h3>
+      <p>Choose the step you're studying to sign in.</p>
+    </div>
+    <div class="step-modal-grid">
+
+      <div class="smcard s1">
+        <div class="smcard-icon">📖</div>
+        <div class="smcard-badge">Step 1</div>
+        <h4>Step 1</h4>
+        <p>Basic Medical Sciences</p>
+        <a class="smcard-btn" href="/s1/login.php">Sign In Step 1 →</a>
+      </div>
+
+      <div class="smcard s2">
+        <div class="smcard-icon">🏥</div>
+        <div class="smcard-badge">Step 2 CK</div>
+        <h4>Step 2 CK</h4>
+        <p>Clinical Knowledge</p>
+        <a class="smcard-btn" href="/s2/login.php">Sign In Step 2 →</a>
+      </div>
+
+      <div class="smcard s3">
+        <div class="smcard-icon">⏰</div>
+        <div class="smcard-badge">Step 3</div>
+        <h4>Step 3</h4>
+        <p>Advanced Clinical Medicine</p>
+        <a class="smcard-btn" href="/s3/login.php">Sign In Step 3 →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Chat bubble -->
+
+</body></html>
+<script>
+/* All navigate() calls use onclick attributes — we expose the function
+   on window so it is available from the very first click, regardless
+   of when the browser parses this script tag.             */
+
+/* ── ROUTER ─────────────────────────────────────────────── */
+const pages   = ['home','steps','pricing','privacy','terms'];
+const navIds  = {home:'nav-home',features:'nav-features',steps:'nav-steps',pricing:'nav-pricing'};
+const dnavIds = {home:'dnav-home',features:'dnav-features',steps:'dnav-steps',pricing:'dnav-pricing'};
+
+window.navigate = function(target){
+  const ham    = document.getElementById('ham');
+  const drawer = document.getElementById('drawer');
+  if(ham)    ham.classList.remove('open');
+  if(drawer) drawer.classList.remove('open');
+
+  pages.forEach(p=>{
+    const el = document.getElementById('page-'+p);
+    if(!el) return;
+    el.classList.remove('active');
+    el.style.display = 'none';
+  });
+
+  const targetEl = document.getElementById('page-'+target);
+  if(!targetEl){ console.warn('Page not found: page-'+target); return; }
+  targetEl.style.display = 'block';
+  void targetEl.offsetWidth;          // force reflow → triggers CSS transition
+  targetEl.classList.add('active');
+
+  Object.keys(navIds).forEach(k=>{
+    const a = document.getElementById(navIds[k]);
+    if(a) a.classList.toggle('active', k === target);
+  });
+  Object.keys(dnavIds).forEach(k=>{
+    const a = document.getElementById(dnavIds[k]);
+    if(a) a.classList.toggle('active', k === target);
+  });
+
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  const titles = {
+    home      : 'Medicospira – Master Your USMLE',
+    features  : 'Features – Medicospira',
+    steps     : 'USMLE Guide – Medicospira',
+    pricing   : 'Pricing – Medicospira',
+    privacy   : 'Privacy Policy – Medicospira',
+    terms     : 'Terms of Service – Medicospira',
+  };
+  document.title = titles[target] || 'Medicospira';
+
+  if(target === 'home') setTimeout(initHomeAnimations, 80);
+};
+
+/* ── HAMBURGER ───────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function(){
+  const ham    = document.getElementById('ham');
+  const drawer = document.getElementById('drawer');
+  if(ham) ham.addEventListener('click', function(){
+    this.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+});
+
+/* ── PRICING PLAN DROPDOWN ───────────────────────────────── */
+window.onPlanChange = function(select){
+  const opt = select.options[select.selectedIndex];
+  if(!opt) return;
+  const target = select.dataset.target;
+  const priceEl  = document.getElementById(target + '-price');
+  const periodEl = document.getElementById(target + '-period');
+  if(priceEl  && opt.dataset.price)  priceEl.textContent  = opt.dataset.price;
+  if(periodEl && opt.dataset.period) periodEl.textContent = opt.dataset.period;
+};
+
+/* ── FAQ ACCORDION ───────────────────────────────────────── */
+window.toggleFaq = function(el){
+  const answer = el.nextElementSibling;
+  const icon   = el.querySelector('.faq-q-icon');
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q-icon').forEach(i => i.classList.remove('open'));
+  if(!isOpen){ answer.classList.add('open'); icon.classList.add('open'); }
+};
+
+/* ── STEP-CONTEXT PRICING ────────────────────────────────── */
+let pricingFromStep = null;
+const stepNames = {
+  step1  : { label:'Step 1',    color:'#1E5FBE', bg:'#E8F1FC', emoji:'📖' },
+  step2ck: { label:'Step 2 CK', color:'#0891B2', bg:'#CFFAFE', emoji:'🏥' },
+  step3  : { label:'Step 3',    color:'#D97706', bg:'#FEF3C7', emoji:'⏰' },
+};
+
+window.navigatePricing = function(fromStep){
+  pricingFromStep = fromStep;
+  navigate('pricing');
+  setTimeout(function(){
+    switchPricingStep(fromStep);
+    renderPricingContext();
+  }, 60);
+};
+
+window.switchPricingStep = function(step){
+  // Hide all panels
+  ['step1','step2ck','step3'].forEach(function(s){
+    const panel = document.getElementById('pricing-'+s);
+    const tab   = document.getElementById('ptab-'+s);
+    if(panel) panel.style.display = 'none';
+    if(tab)   tab.classList.remove('ptab-active');
+  });
+  // Show selected panel
+  const activePanel = document.getElementById('pricing-'+step);
+  const activeTab   = document.getElementById('ptab-'+step);
+  if(activePanel) activePanel.style.display = 'grid';
+  if(activeTab)   activeTab.classList.add('ptab-active');
+  // Update notice label
+  const labels = { step1:'Step 1', step2ck:'Step 2 CK', step3:'Step 3' };
+  const lbl = document.getElementById('ptab-step-label');
+  if(lbl) lbl.textContent = labels[step] || 'Step 1';
+};
+
+function renderPricingContext(){
+  const existing = document.getElementById('step-context-banner');
+  if(existing) existing.remove();
+  if(!pricingFromStep) return;
+  const step = stepNames[pricingFromStep];
+  const hero = document.querySelector('#page-pricing .page-hero');
+  if(!hero || !step) return;
+  const banner = document.createElement('div');
+  banner.id = 'step-context-banner';
+  banner.style.cssText = [
+    'max-width:860px;margin:24px auto 0;',
+    'background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);',
+    'border-radius:14px;padding:16px 24px;',
+    'display:flex;align-items:center;gap:14px;flex-wrap:wrap;',
+    'position:relative;z-index:1;'
+  ].join('');
+  banner.innerHTML =
+    '<div style="width:40px;height:40px;border-radius:10px;background:'+step.bg+';display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">'+step.emoji+'</div>'+
+    '<div style="flex:1;min-width:160px;">'+
+      '<p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:2px;">Coming from</p>'+
+      '<p style="font-size:15px;font-weight:700;color:white;">'+step.label+' Preparation</p>'+
+    '</div>'+
+    '<p style="font-size:13px;color:rgba(255,255,255,.70);flex:2;min-width:180px;line-height:1.55;">'+
+      '&#x2705; Your plan includes <strong style="color:white;">'+step.label+' and all steps</strong> — one subscription covers everything.'+
+    '</p>'+
+    '<button onclick="navigate(\''+pricingFromStep+'\')" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:white;font-size:13px;font-weight:600;padding:8px 16px;cursor:pointer;white-space:nowrap;flex-shrink:0;">'+
+      '&larr; Back to '+step.label+
+    '</button>';
+  hero.appendChild(banner);
+}
+
+/* ── SCORE CALCULATOR ────────────────────────────────────── */
+let currentStep = 'step1';
+const stepPassingBase = { step1:194, step2ck:209, step3:198 };
+const stepMaxScore    = { step1:270, step2ck:270, step3:270 };
+const stepAvg         = { step1:232, step2ck:245, step3:228 };
+
+window.selectStep = function(btn, step){
+  currentStep = step;
+  document.querySelectorAll('.step-btn').forEach(b=>{
+    b.style.border = '2px solid var(--border)';
+    b.style.background = 'white';
+    b.style.color = 'var(--text-muted)';
+  });
+  btn.style.border = '2px solid var(--cobalt)';
+  btn.style.background = 'var(--sky-bg)';
+  btn.style.color = 'var(--cobalt)';
+  updateCalc();
+};
+
+window.updateCalc = function(){
+  const pctEl  = document.getElementById('pct-correct');
+  if(!pctEl) return;
+  const pct   = parseInt(pctEl.value);
+  const qDone = parseInt(document.getElementById('q-done').value);
+  const weeks = parseInt(document.getElementById('weeks').value);
+  const nbme  = parseInt(document.getElementById('nbme-score').value);
+
+  document.getElementById('pct-val').textContent  = pct + '%';
+  document.getElementById('q-val').textContent    = qDone >= 1000 ? (qDone/1000).toFixed(1).replace('.0','')+'K' : qDone.toLocaleString();
+  document.getElementById('wk-val').textContent   = weeks + (weeks===1?' week':' weeks');
+  document.getElementById('nbme-val').textContent = nbme === 0 ? 'None' : nbme;
+
+  const base = stepPassingBase[currentStep];
+  const maxS = stepMaxScore[currentStep];
+  const range = maxS - base;
+  const qFactor = Math.min(Math.max((pct-30)/65,0),1);
+  const vFactor = Math.min(Math.max((qDone-100)/4900,0),1);
+  const tFactor = Math.min(Math.max((weeks-2)/22,0),1);
+  let composite = qFactor*0.55 + vFactor*0.25 + tFactor*0.20;
+  let estimated = nbme > 0
+    ? (base + composite*range)*0.35 + nbme*0.65
+    : base + composite*range;
+  estimated = Math.round(Math.min(Math.max(estimated, base-10), maxS));
+  const low  = Math.max(estimated-6, base-8);
+  const high = Math.min(estimated+6, maxS);
+
+  document.getElementById('score-display').textContent = estimated;
+  document.getElementById('score-range').textContent   = 'Range: '+low+' – '+high;
+
+  const badge = document.getElementById('score-badge');
+  const avg   = stepAvg[currentStep];
+  const styles = {
+    red   : 'display:inline-flex;align-items:center;gap:8px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.30);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:700;color:#F87171;',
+    amber : 'display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.30);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:700;color:#FCD34D;',
+    green : 'display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.30);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:700;color:#4ADE80;',
+    blue  : 'display:inline-flex;align-items:center;gap:8px;background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.30);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:700;color:#60A5FA;',
+  };
+  if(estimated < base)       { badge.style.cssText = styles.red;   badge.textContent = '⚠️ Below Passing — Need More Prep'; }
+  else if(estimated < avg-10){ badge.style.cssText = styles.amber; badge.textContent = '📈 Passing — Room to Improve'; }
+  else if(estimated < avg+10){ badge.style.cssText = styles.green; badge.textContent = '✅ Above Average'; }
+  else                       { badge.style.cssText = styles.blue;  badge.textContent = '🏆 Excellent — Competitive Score'; }
+
+  const qPct = Math.round(qFactor*100);
+  const vPct = Math.round(vFactor*100);
+  const tPct = Math.round(tFactor*100);
+  document.getElementById('bd-q').textContent     = qPct + '%';
+  document.getElementById('bd-v').textContent     = vPct + '%';
+  document.getElementById('bd-t').textContent     = tPct + '%';
+  document.getElementById('bd-q-bar').style.width = qPct + '%';
+  document.getElementById('bd-v-bar').style.width = vPct + '%';
+  document.getElementById('bd-t-bar').style.width = tPct + '%';
+
+  const advice = document.getElementById('advice-text');
+  if(estimated < base)       advice.textContent = 'Your estimate is below the passing threshold of '+base+'. Focus on raising your qbank % correct to at least 55% and add more study weeks.';
+  else if(pct < 55)          advice.textContent = 'Your % correct is the main limiter. Slow down, review every wrong answer thoroughly, and target 55%+ before sitting the exam.';
+  else if(qDone < 1500)      advice.textContent = 'Fewer than 1,500 questions done. Ramp up to 40–60 questions per day. Exposure volume significantly boosts exam performance.';
+  else if(estimated >= avg+15) advice.textContent = 'Excellent trajectory! Take 1–2 more full-length mock exams to confirm readiness, then eliminate any remaining weak spots.';
+  else advice.textContent = 'Solid path. Increase daily questions to 50+, keep flashcard reviews consistent, and consider an NBME practice exam to calibrate your real score.';
+};
+
+/* ── RESPONSIVE STYLES FOR NEW PAGES ────────────────────── */
+(function(){
+  const s = document.createElement('style');
+  s.textContent = [
+    '@media(max-width:1024px){',
+    '.steps-hub-grid{grid-template-columns:1fr!important;}',
+    '.step-detail-grid{grid-template-columns:1fr!important;}',
+    '.calc-layout{grid-template-columns:1fr!important;}',
+    '.guide-grid{grid-template-columns:1fr!important;}',
+    '.career-grid{grid-template-columns:1fr!important;}',
+    '.tips-grid{grid-template-columns:1fr 1fr!important;}',
+    '.bench-grid{grid-template-columns:1fr!important;}',
+    '}',
+    '@media(max-width:480px){',
+    '.tips-grid{grid-template-columns:1fr!important;}',
+    '.bench-grid{grid-template-columns:1fr!important;}',
+    '}'
+  ].join('');
+  document.head.appendChild(s);
+})();
+
+/* ── SCROLL PROGRESS BAR ─────────────────────────────────── */
+function initScrollProgress(){
+  const bar = document.getElementById('scroll-progress');
+  if(!bar) return;
+  window.addEventListener('scroll', function(){
+    const scrolled = window.scrollY;
+    const total    = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (total > 0 ? scrolled/total : 0) + ')';
+  }, { passive:true });
+}
+
+/* ── PARTICLE CANVAS ─────────────────────────────────────── */
+function initParticles(){
+  const canvas = document.getElementById('hero-particles');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  function resize(){
+    const hero = canvas.parentElement;
+    W = canvas.width  = hero ? hero.offsetWidth  : window.innerWidth;
+    H = canvas.height = hero ? hero.offsetHeight : 600;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  function Particle(){this.reset();}
+  Particle.prototype.reset = function(){
+    this.x = Math.random()*W; this.y = H + Math.random()*40;
+    this.r = Math.random()*2 + .5; this.speed = Math.random()*.5 + .3;
+    this.drift = (Math.random()-.5)*.4; this.opacity = 0;
+    this.maxOpacity = Math.random()*.5 + .1;
+    this.life = 0; this.maxLife = Math.random()*200 + 150;
+  };
+  Particle.prototype.update = function(){
+    this.y -= this.speed; this.x += this.drift; this.life++;
+    if(this.life < 30) this.opacity = (this.life/30)*this.maxOpacity;
+    else if(this.life > this.maxLife-30) this.opacity = ((this.maxLife-this.life)/30)*this.maxOpacity;
+    else this.opacity = this.maxOpacity;
+    if(this.life >= this.maxLife) this.reset();
+  };
+  Particle.prototype.draw = function(){
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(96,165,250,'+this.opacity+')'; ctx.fill();
+  };
+  for(let i=0;i<60;i++){
+    const p = new Particle();
+    p.y = Math.random()*H; p.life = Math.random()*p.maxLife;
+    particles.push(p);
+  }
+  (function loop(){ ctx.clearRect(0,0,W,H); particles.forEach(function(p){p.update();p.draw();}); requestAnimationFrame(loop); })();
+}
+
+/* ── SCROLL REVEAL ───────────────────────────────────────── */
+function initScrollReveal(){
+  const sel = '#page-home .reveal, #page-home .reveal-left, #page-home .reveal-right, #page-home .reveal-scale, #page-home .stagger-children';
+  const obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        if(e.target.classList.contains('reveal-left')) triggerScoreBars();
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll(sel).forEach(function(el){ obs.observe(el); });
+}
+
+/* ── ECG ANIMATION ───────────────────────────────────────── */
+function initECG(){
+  const ecgEl = document.getElementById('ecg-bar');
+  if(!ecgEl) return;
+  const line = ecgEl.querySelector('.ecg-line');
+  if(!line) return;
+  const obs = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){ line.classList.add('animated'); obs.disconnect(); }
+  },{threshold:.3});
+  obs.observe(ecgEl);
+}
+
+/* ── STAT COUNTERS ───────────────────────────────────────── */
+function initCounters(){
+  const obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ animateCounter(e.target); obs.unobserve(e.target); }
+    });
+  },{threshold:.5});
+  document.querySelectorAll('#page-home .why-stat-num[data-target]').forEach(function(s){ obs.observe(s); });
+}
+function animateCounter(el){
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const isDecimal = target % 1 !== 0;
+  const duration = 1600; const start = performance.now();
+  (function step(now){
+    const p = Math.min((now-start)/duration, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    const val = target * ease;
+    el.textContent = (target >= 1000 ? Math.floor(val).toLocaleString() : isDecimal ? val.toFixed(1) : Math.floor(val)) + suffix;
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = (target >= 1000 ? target.toLocaleString() : isDecimal ? target.toFixed(1) : target) + suffix;
+  })(start);
+}
+
+/* ── SCORE BARS ──────────────────────────────────────────── */
+let barsAnimated = false;
+function triggerScoreBars(){
+  if(barsAnimated) return; barsAnimated = true;
+  document.querySelectorAll('#score-bars .anim-bar-fill').forEach(function(bar,i){
+    setTimeout(function(){ bar.style.width = bar.dataset.width+'%'; }, i*180);
+  });
+}
+
+/* ── TYPEWRITER ──────────────────────────────────────────── */
+function initTypewriter(){
+  const el = document.querySelector('#page-home .hero-sub');
+  if(!el) return;
+  const texts = ['Score Higher, Study Smarter','AI-Powered USMLE Prep','Trusted by 30,000+ Students','Pass Your Exam with Confidence'];
+  let tIdx=0, cIdx=0, deleting=false;
+  const cursor = document.createElement('span');
+  cursor.className = 'typewriter-cursor';
+  el.textContent = ''; el.appendChild(cursor);
+  function type(){
+    const current = texts[tIdx];
+    if(!deleting){
+      el.textContent = current.substring(0, cIdx+1); el.appendChild(cursor); cIdx++;
+      if(cIdx === current.length){ deleting=true; setTimeout(type,1800); return; }
+      setTimeout(type, 55);
+    } else {
+      el.textContent = current.substring(0, cIdx-1); el.appendChild(cursor); cIdx--;
+      if(cIdx === 0){ deleting=false; tIdx=(tIdx+1)%texts.length; setTimeout(type,400); return; }
+      setTimeout(type, 28);
+    }
+  }
+  setTimeout(type, 1200);
+}
+
+/* ── BUTTON RIPPLE ───────────────────────────────────────── */
+function initRipple(){
+  document.querySelectorAll('#page-home .btn-primary,#page-home .btn-ghost,#page-home .btn-outline').forEach(function(btn){
+    btn.style.position = 'relative'; btn.style.overflow = 'hidden';
+    btn.addEventListener('click', function(e){
+      const r = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width,rect.height)*2;
+      r.style.cssText = 'position:absolute;width:'+size+'px;height:'+size+'px;left:'+(e.clientX-rect.left-size/2)+'px;top:'+(e.clientY-rect.top-size/2)+'px;background:rgba(255,255,255,.25);border-radius:50%;transform:scale(0);animation:ripple-expand .55s ease-out forwards;pointer-events:none;';
+      this.appendChild(r); setTimeout(function(){r.remove();},600);
+    });
+  });
+  if(!document.getElementById('ripple-style')){
+    const s=document.createElement('style');
+    s.id='ripple-style';
+    s.textContent='@keyframes ripple-expand{to{transform:scale(1);opacity:0;}}';
+    document.head.appendChild(s);
+  }
+}
+
+/* ── CURSOR GLOW ─────────────────────────────────────────── */
+function initCursorGlow(){
+  const hero = document.querySelector('#page-home .hero');
+  if(!hero) return;
+  const glow = document.createElement('div');
+  glow.style.cssText = 'position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.12),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:left .15s ease,top .15s ease;z-index:0;';
+  hero.appendChild(glow);
+  hero.addEventListener('mousemove',function(e){ const r=hero.getBoundingClientRect(); glow.style.left=(e.clientX-r.left)+'px'; glow.style.top=(e.clientY-r.top)+'px'; });
+  hero.addEventListener('mouseleave',function(){ glow.style.opacity='0'; });
+  hero.addEventListener('mouseenter',function(){ glow.style.opacity='1'; });
+}
+
+/* ── CARD TILT ───────────────────────────────────────────── */
+function initCardTilt(){
+  document.querySelectorAll('#page-home .wcard').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform='translateY(-5px) rotateY('+(x*10)+'deg) rotateX('+(-y*8)+'deg)';
+      card.style.transition='transform .1s ease';
+    });
+    card.addEventListener('mouseleave',function(){ card.style.transform=''; card.style.transition='transform .4s ease,box-shadow .3s'; });
+  });
+}
+
+/* ── MASTER HOME INIT ────────────────────────────────────── */
+function initHomeAnimations(){
+  barsAnimated = false;
+  document.querySelectorAll('#page-home .reveal,#page-home .reveal-left,#page-home .reveal-right,#page-home .reveal-scale,#page-home .stagger-children').forEach(function(el){ el.classList.remove('revealed'); });
+  document.querySelectorAll('#score-bars .anim-bar-fill').forEach(function(b){ b.style.width='0%'; });
+  initParticles();
+  initScrollReveal();
+  initECG();
+  initCounters();
+  initTypewriter();
+  initRipple();
+  initCursorGlow();
+  initCardTilt();
+}
+
+/* ── STEP-PICKER MODAL ───────────────────────────────────── */
+window.openStepModal = function(){
+  const m = document.getElementById('step-modal');
+  if(!m) return;
+  m.classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeStepModal = function(){
+  const m = document.getElementById('step-modal');
+  if(!m) return;
+  m.classList.remove('open');
+  document.body.style.overflow = '';
+};
+window.handleStepModalBackdrop = function(e){
+  if(e.target && e.target.id === 'step-modal') closeStepModal();
+};
+
+/* ── LOGIN MODAL ────────────────────────────────────────── */
+window.openLoginModal = function(){
+  const m = document.getElementById('login-modal');
+  if(!m) return;
+  m.classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeLoginModal = function(){
+  const m = document.getElementById('login-modal');
+  if(!m) return;
+  m.classList.remove('open');
+  document.body.style.overflow = '';
+};
+window.handleLoginModalBackdrop = function(e){
+  if(e.target && e.target.id === 'login-modal') closeLoginModal();
+};
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){ closeStepModal(); closeLoginModal(); }
+});
+
+/* ── BOOT ────────────────────────────────────────────────── */
+initScrollProgress();
+navigate('home');
+</script>
+</body>
+</html>
